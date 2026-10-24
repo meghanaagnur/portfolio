@@ -900,6 +900,11 @@ nav {
     border-color: var(--border-hover);
 }
 
+#view-count {
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+}
+
 /* Content Sections */
 .content-section {
     padding: 2rem 0;

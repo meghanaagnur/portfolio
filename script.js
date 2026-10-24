@@ -123,17 +123,75 @@ document.addEventListener('DOMContentLoaded', () => {
     // === Tech Stack Marquee (Interactive) ===
     // Handled via CSS keyframes with pause-on-hover for seamless 60fps performance
 
-    // === View Counter ===
+    // === Real Global View Counter ===
     const viewCountElement = document.getElementById('view-count');
     if (viewCountElement) {
-        let currentViews = localStorage.getItem('portfolio_views');
-        if (!currentViews) {
-            currentViews = 1024; // Starting baseline number
-        } else {
-            currentViews = parseInt(currentViews) + 1;
+        const COUNTER_KEY = 'meghanaagnur-portfolio-views-v1';
+        const API_BASE = 'https://countapi.mileshilliard.com/api/v1';
+        const SESSION_FLAG = 'portfolio_view_counted';
+        const CACHE_KEY = 'portfolio_live_views';
+
+        // 1. Immediately display cached count to avoid layout shift
+        const cachedViews = localStorage.getItem(CACHE_KEY);
+        if (cachedViews) {
+            viewCountElement.textContent = Number(cachedViews).toLocaleString();
         }
-        localStorage.setItem('portfolio_views', currentViews);
-        viewCountElement.textContent = currentViews.toLocaleString();
+
+        // 2. Increment once per session, get for refreshes/subsequent pageviews in same session
+        const hasCountedSession = sessionStorage.getItem(SESSION_FLAG);
+        const endpoint = hasCountedSession 
+            ? `${API_BASE}/get/${COUNTER_KEY}` 
+            : `${API_BASE}/hit/${COUNTER_KEY}`;
+
+        // AbortController to avoid hanging on slow network
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+        function animateCount(element, start, end) {
+            if (start === end || isNaN(start)) {
+                element.textContent = end.toLocaleString();
+                return;
+            }
+            const duration = 600;
+            const startTime = performance.now();
+            function updateNumber(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 2);
+                const current = Math.floor(start + (end - start) * eased);
+                element.textContent = current.toLocaleString();
+                if (progress < 1) {
+                    requestAnimationFrame(updateNumber);
+                } else {
+                    element.textContent = end.toLocaleString();
+                }
+            }
+            requestAnimationFrame(updateNumber);
+        }
+
+        fetch(endpoint, { signal: controller.signal })
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                return res.json();
+            })
+            .then(data => {
+                clearTimeout(timeoutId);
+                if (data && typeof data.value === 'number') {
+                    const realCount = data.value;
+                    sessionStorage.setItem(SESSION_FLAG, 'true');
+                    localStorage.setItem(CACHE_KEY, realCount);
+
+                    const startNum = cachedViews ? parseInt(cachedViews, 10) : 0;
+                    animateCount(viewCountElement, startNum, realCount);
+                }
+            })
+            .catch(err => {
+                clearTimeout(timeoutId);
+                console.warn('Real view count fetch error:', err);
+                if (!cachedViews) {
+                    viewCountElement.textContent = '1';
+                }
+            });
     }
 
     // === Theme Switcher (Dark / Light Mode) ===
