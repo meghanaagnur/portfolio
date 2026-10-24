@@ -1,0 +1,23 @@
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Binaries and compiled libraries
+*.dll
+*.exe
+*.so
+*.dylib
+
+# Dependencies
+node_modules/
+
+# Scratch & temporary development files
+scratch/
+test_*.mp4
+test_*.webm
+
+# Local server / environment logs
+*.log
+.env
+.env.local

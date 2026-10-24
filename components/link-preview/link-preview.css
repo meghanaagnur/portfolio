@@ -1,0 +1,194 @@
+/* ==========================================================================
+   Link Preview Component Styles
+   Smooth, animated hover preview cards (Vanilla CSS & React compatible)
+   Inspired by Aceternity UI / Planes (@useplanes/link-preview)
+   ========================================================================== */
+
+:root {
+  --lp-bg: rgba(22, 22, 26, 0.88);
+  --lp-border: rgba(255, 255, 255, 0.12);
+  --lp-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.07);
+  --lp-text: #ededed;
+  --lp-subtext: #8e8e93;
+  --lp-radius: 16px;
+  --lp-img-radius: 11px;
+  --lp-ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --lp-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="light"],
+body.light-theme {
+  --lp-bg: rgba(255, 255, 255, 0.92);
+  --lp-border: rgba(0, 0, 0, 0.08);
+  --lp-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  --lp-text: #111111;
+  --lp-subtext: #666666;
+}
+
+/* --- Trigger Element Styling --- */
+.link-preview-trigger,
+[data-link-preview],
+[data-preview-image],
+[data-preview-url] {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.link-preview-trigger:hover,
+[data-link-preview]:hover,
+[data-preview-image]:hover,
+[data-preview-url]:hover {
+  text-decoration-style: solid;
+}
+
+/* Hero / Highlight trigger variant (like "Spy x Family" in demo) */
+.link-preview-trigger.hero-trigger {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+/* --- Floating Preview Card Container --- */
+.link-preview-card {
+  position: fixed;
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(0, 10px, 0) scale(0.88);
+  transform-origin: center bottom;
+  transition: opacity 0.22s var(--lp-ease-out),
+              transform 0.28s var(--lp-ease-spring),
+              visibility 0.22s;
+  padding: 5px;
+  background: var(--lp-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--lp-border);
+  border-radius: var(--lp-radius);
+  box-shadow: var(--lp-shadow);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  will-change: transform, opacity;
+}
+
+/* Active / Visible state */
+.link-preview-card.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0) scale(1);
+  pointer-events: auto;
+}
+
+/* When flipped below trigger */
+.link-preview-card.flipped {
+  transform-origin: center top;
+}
+
+.link-preview-card.flipped:not(.is-visible) {
+  transform: translate3d(0, -10px, 0) scale(0.88);
+}
+
+.link-preview-card.flipped.is-visible {
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Card inner image wrapper */
+.link-preview-img-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--lp-img-radius);
+  background: rgba(120, 120, 128, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  min-height: 125px;
+}
+
+/* Image element */
+.link-preview-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--lp-img-radius);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.link-preview-img.loaded {
+  opacity: 1;
+}
+
+/* Loading skeleton pulse */
+.link-preview-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  background-size: 200% 100%;
+  animation: lp-shimmer 1.5s infinite;
+  pointer-events: none;
+}
+
+[data-theme="light"] .link-preview-skeleton,
+body.light-theme .link-preview-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.03) 0%,
+    rgba(0, 0, 0, 0.08) 50%,
+    rgba(0, 0, 0, 0.03) 100%
+  );
+}
+
+@keyframes lp-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Optional Bottom Meta Bar (title / domain tag) */
+.link-preview-meta {
+  padding: 8px 10px 4px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: inherit;
+}
+
+.link-preview-meta:empty {
+  display: none;
+}
+
+.link-preview-title {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--lp-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.link-preview-badge {
+  font-size: 0.65rem;
+  font-family: monospace;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(120, 120, 128, 0.15);
+  color: var(--lp-subtext);
+}

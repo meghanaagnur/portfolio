@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Swan & Pond Physics Banner — Component Demo</title>
+    <link rel="stylesheet" href="swan-banner.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b0c10;
+            color: #e0e2ec;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2.5rem 1.5rem;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        [data-theme="light"] body {
+            background-color: #f7f8fa;
+            color: #1a1c22;
+        }
+
+        .demo-container {
+            width: 100%;
+            max-width: 960px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .demo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] .demo-header {
+            border-bottom-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .demo-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .demo-subtitle {
+            font-size: 0.85rem;
+            color: #8b92a5;
+            margin-top: 0.25rem;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: inherit;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        [data-theme="light"] .theme-toggle {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .banner-wrap {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .demo-hints {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 12px;
+            padding: 1.25rem;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #9ca3af;
+        }
+
+        [data-theme="light"] .demo-hints {
+            background: rgba(0, 0, 0, 0.02);
+            border-color: rgba(0, 0, 0, 0.06);
+            color: #4b5563;
+        }
+
+        .demo-hints strong {
+            color: inherit;
+        }
+
+        .demo-hints ul {
+            margin-top: 0.5rem;
+            padding-left: 1.25rem;
+        }
+
+        .demo-hints li {
+            margin-bottom: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <header class="demo-header">
+            <div>
+                <h1 class="demo-title">Swan & Pond Interactive Physics Banner</h1>
+                <p class="demo-subtitle">Handcrafted multi-layer animation preserved from portfolio</p>
+            </div>
+            <button class="theme-toggle" id="themeBtn" aria-label="Toggle theme">
+                <span id="themeLabel">Switch to Light Mode</span>
+            </button>
+        </header>
+
+        <div class="banner-wrap">
+            <div class="hero-banner" id="heroBanner">
+                <!-- Layer 1: Water Background (Bottom) -->
+                <div class="banner-layer-group layer-pond pond-drift">
+                    <img src="../../banner/pond-day.webp" alt="" aria-hidden="true" class="banner-layer banner-layer-day" loading="lazy">
+                    <img src="../../banner/pond-night.webp" alt="" aria-hidden="true" class="banner-layer banner-layer-night" loading="eager" fetchpriority="high">
+                </div>
+
+                <!-- Water Ripples -->
+                <!-- Left Swan Beak Ripples -->
+                <span class="ripple-ring ripple-beak ripple-delay-1" aria-hidden="true"></span>
+                <span class="ripple-ring ripple-beak ripple-delay-2" aria-hidden="true"></span>
+                <span class="ripple-ring ripple-beak ripple-delay-3" aria-hidden="true"></span>
+
+                <!-- Right Swan Chest Ripple -->
+                <span class="ripple-ring ripple-chest" aria-hidden="true"></span>
+
+                <!-- Layer 2: Left Swan (Middle) -->
+                <div class="banner-layer-group layer-swan-left swan-left-dip">
+                    <div class="swan-left-bob">
+                        <img src="../../banner/swan-left-day.webp" alt="" aria-hidden="true" class="banner-layer banner-layer-day" loading="lazy">
+                        <img src="../../banner/swan-left-night.webp" alt="" aria-hidden="true" class="banner-layer banner-layer-night" loading="eager">
+                    </div>
+                </div>
+
+                <!-- Layer 3: Right Swan (Top) -->
+                <div class="banner-layer-group layer-swan-right swan-right-glide">
+                    <div class="swan-right-bob">
+                        <img src="../../banner/swan-right-day.webp" alt="" aria-hidden="true" class="banner-layer banner-layer-day" loading="lazy">
+                        <img src="../../banner/swan-right-night.webp" alt="" aria-hidden="true" class="banner-layer banner-layer-night" loading="eager">
+                    </div>
+                </div>
+
+                <!-- Layer 4: Light Shimmer Overlay -->
+                <div class="banner-shimmer" aria-hidden="true">
+                    <img src="../../banner/pond-day.webp" alt="" aria-hidden="true" class="banner-layer banner-layer-day" loading="lazy">
+                    <img src="../../banner/pond-night.webp" alt="" aria-hidden="true" class="banner-layer banner-layer-night" loading="eager">
+                </div>
+
+                <!-- Layer 5: Floating Petals -->
+                <div class="banner-petals" aria-hidden="true">
+                    <span class="petal petal-1"></span>
+                    <span class="petal petal-2"></span>
+                    <span class="petal petal-3"></span>
+                    <span class="petal petal-4"></span>
+                </div>
+
+                <!-- Layer 6: Tactile Grain Texture Overlay -->
+                <div class="grain-overlay" aria-hidden="true"></div>
+            </div>
+        </div>
+
+        <section class="demo-hints">
+            <strong>Interactive Features Active:</strong>
+            <ul>
+                <li><strong>Mouse Tracking:</strong> Move your mouse across the banner — the right swan actively swims toward the cursor and banks with velocity, while the left swan gently turns.</li>
+                <li><strong>Interactive Ripples:</strong> Move cursor slowly across water to generate water ripples; click anywhere to cast a strong ripple.</li>
+                <li><strong>Trailing Wake:</strong> The active swimming swan spawns wake ripples behind it as it surges forward.</li>
+                <li><strong>Theme Switching:</strong> Click the button above to toggle between deep moonlit night and watercolor day palette.</li>
+            </ul>
+        </section>
+    </div>
+
+    <script type="module">
+        import { initSwanBanner } from './swan-banner.js';
+        initSwanBanner(document.getElementById('heroBanner'));
+
+        const themeBtn = document.getElementById('themeBtn');
+        const themeLabel = document.getElementById('themeLabel');
+        let isDark = true;
+
+        themeBtn.addEventListener('click', () => {
+            isDark = !isDark;
+            const theme = isDark ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            themeLabel.textContent = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+        });
+    </script>
+</body>
+</html>
