@@ -240,7 +240,7 @@
 
     // Preload sprite sheet image to prevent initial flicker
     const spriteSheetUrl = getComputedStyle(catEl).getPropertyValue('--cat-sprite-url')
-      .replace(/url\(['"]?(.*?)['"]?\)/, '$1').trim() || 'public/assets/cat_spritesheet_4x3.png';
+      .replace(/url\(['"]?(.*?)['"]?\)/, '$1').trim() || 'components/pixel-cat/assets/cat_spritesheet_4x3.png';
     const preloader = new Image();
     preloader.src = spriteSheetUrl;
 
