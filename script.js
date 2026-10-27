@@ -633,9 +633,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Get your free key instantly by entering meghanaagnur@gmail.com at https://web3forms.com
         // If left empty, it will open the visitor's default email client prefilled with your address.
         const CONTACT_CONFIG = {
-            web3FormsKey: '', // e.g. 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+            web3FormsKey: '', // Optional: Web3Forms fallback key
             recipientEmail: 'meghanaagnur@gmail.com',
-            resendEndpoint: '' // Optional: URL to your serverless Resend function if hosted on Vercel/Cloudflare
+            resendEndpoint: '/api/send' // Vercel Serverless Function proxy for Resend
         };
 
         contactForm.addEventListener('submit', async (e) => {
@@ -671,14 +671,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const senderDisplayName = name ? `${name} <${email}>` : email;
 
             try {
-                // 1. If custom Resend serverless function is configured:
+                // 1. Send via Vercel Serverless function (/api/send) connected to Resend:
                 if (CONTACT_CONFIG.resendEndpoint) {
                     const res = await fetch(CONTACT_CONFIG.resendEndpoint, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ name, email, message, to: CONTACT_CONFIG.recipientEmail })
+                        body: JSON.stringify({ name, email, message })
                     });
-                    if (!res.ok) throw new Error('Failed to send via Resend endpoint');
+                    const resData = await res.json().catch(() => ({}));
+                    if (!res.ok) {
+                        throw new Error(resData.error || `Server error ${res.status}`);
+                    }
                     showSuccess();
                     return;
                 }
