@@ -504,51 +504,241 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // === Swiss Lake Scenic Footer (Calm Ambient Ripple & Viewport Observer) ==
+    // === Global Tactile Click Sound Effect (Web Audio API Engine) ============
     // =========================================================================
-    const footerScene = document.getElementById('footerScene');
-    const siteFooter = document.getElementById('siteFooter');
+    (function initClickSound() {
+        let audioCtx = null;
+        let audioBuffer = null;
+        let isFetching = false;
+        let lastPlayTime = 0;
+        const SOUND_URL = 'click.mp3';
 
-    if (footerScene && siteFooter) {
-        // Dynamic water ripple spawner for footer lake (on gentle click)
-        function spawnFooterRipple(xPercent, yPercent, isStrong = false) {
-            const ripple = document.createElement('span');
-            ripple.className = `interactive-ripple ${isStrong ? 'ripple-strong' : ''}`;
-            ripple.style.left = `${xPercent}%`;
-            ripple.style.top = `${yPercent}%`;
-            ripple.setAttribute('aria-hidden', 'true');
-            footerScene.appendChild(ripple);
-
-            setTimeout(() => {
-                if (ripple.parentNode) {
-                    ripple.parentNode.removeChild(ripple);
+        // Lazy initialize AudioContext on first interaction
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    audioCtx = new AudioContextClass();
                 }
-            }, isStrong ? 3000 : 2400);
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume().catch(() => {});
+            }
+            return audioCtx;
         }
 
-        siteFooter.addEventListener('click', (e) => {
-            const rect = siteFooter.getBoundingClientRect();
-            const relX = e.clientX - rect.left;
-            const relY = e.clientY - rect.top;
-            const xPercent = (relX / rect.width) * 100;
-            const yPercent = (relY / rect.height) * 100;
-            if (yPercent > 35) {
-                spawnFooterRipple(xPercent, yPercent, true);
+        // Preload and decode audio buffer
+        function loadBuffer() {
+            if (audioBuffer || isFetching) return;
+            isFetching = true;
+            fetch(SOUND_URL)
+                .then(res => {
+                    if (!res.ok) throw new Error('Failed to load ' + SOUND_URL);
+                    return res.arrayBuffer();
+                })
+                .then(arrayBuffer => {
+                    const ctx = getAudioContext();
+                    if (!ctx) return null;
+                    return ctx.decodeAudioData(arrayBuffer);
+                })
+                .then(decoded => {
+                    if (decoded) audioBuffer = decoded;
+                })
+                .catch(err => {
+                    console.warn('Click audio buffer load fallback:', err);
+                })
+                .finally(() => {
+                    isFetching = false;
+                });
+        }
+
+        // HTMLAudio fallback pool
+        const audioPool = [new Audio(SOUND_URL), new Audio(SOUND_URL), new Audio(SOUND_URL)];
+        let poolIdx = 0;
+
+        function playClickSound() {
+            const now = performance.now();
+            if (now - lastPlayTime < 35) return; // Debounce rapid bursts
+            lastPlayTime = now;
+
+            const ctx = getAudioContext();
+            if (ctx && audioBuffer) {
+                try {
+                    const source = ctx.createBufferSource();
+                    const gainNode = ctx.createGain();
+                    source.buffer = audioBuffer;
+                    gainNode.gain.setValueAtTime(0.35, ctx.currentTime);
+                    source.connect(gainNode);
+                    gainNode.connect(ctx.destination);
+                    source.start(0);
+                    return;
+                } catch (e) {
+                    // Fall through to HTMLAudio pool
+                }
+            }
+
+            // Fallback if buffer not yet decoded or WebAudio unavailable
+            try {
+                const audio = audioPool[poolIdx];
+                poolIdx = (poolIdx + 1) % audioPool.length;
+                audio.volume = 0.35;
+                audio.currentTime = 0;
+                audio.play().catch(() => {});
+            } catch (e) {}
+
+            // Trigger buffer fetch if not already loaded
+            if (!audioBuffer) {
+                loadBuffer();
+            }
+        }
+
+        // Start loading early
+        loadBuffer();
+
+        // Target all interactive elements across the site
+        const INTERACTIVE_SELECTOR = 'a, button, input[type="button"], input[type="submit"], [role="button"], .glare-button, .contact-strip-item, .tech-item, .project-card, .theme-toggle, .graph-cell, .timeline-item, .footer-back-to-top, .view-all, .views, .nav-links a';
+
+        // Immediate tactile response on pointerdown / mousedown
+        document.addEventListener('pointerdown', (e) => {
+            const el = e.target.closest(INTERACTIVE_SELECTOR);
+            if (el) {
+                playClickSound();
+            }
+        }, { passive: true });
+
+        // Keyboard navigation support (Enter or Space on interactive elements)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const el = document.activeElement && document.activeElement.closest(INTERACTIVE_SELECTOR);
+                if (el) {
+                    playClickSound();
+                }
+            }
+        }, { passive: true });
+
+        // Expose globally for any programmatic triggers if needed
+        window.playClickSound = playClickSound;
+    })();
+
+    // =========================================================================
+    // === Contact & Connect Form (Direct Email / Web3Forms / Resend API) =====
+    // =========================================================================
+    const contactForm = document.getElementById('contactForm');
+    const sendMailBtn = document.getElementById('sendMailBtn');
+    const sendMailStatus = document.getElementById('sendMailStatus');
+
+    if (contactForm && sendMailBtn) {
+        // Configuration:
+        // For static sites (GitHub Pages), Web3Forms is 100% free with no backend server needed.
+        // Get your free key instantly by entering meghanaagnur@gmail.com at https://web3forms.com
+        // If left empty, it will open the visitor's default email client prefilled with your address.
+        const CONTACT_CONFIG = {
+            web3FormsKey: '', // e.g. 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+            recipientEmail: 'meghanaagnur@gmail.com',
+            resendEndpoint: '' // Optional: URL to your serverless Resend function if hosted on Vercel/Cloudflare
+        };
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nameInput = document.getElementById('senderName');
+            const emailInput = document.getElementById('senderEmail');
+            const messageInput = document.getElementById('senderMessage');
+
+            const name = nameInput ? nameInput.value.trim() : '';
+            const email = emailInput ? emailInput.value.trim() : '';
+            const message = messageInput ? messageInput.value.trim() : '';
+
+            if (!email || !message) {
+                if (sendMailStatus) {
+                    sendMailStatus.textContent = 'Please fill out your email and message.';
+                    sendMailStatus.className = 'form-status error';
+                }
+                return;
+            }
+
+            // Disable button while processing
+            sendMailBtn.disabled = true;
+            const btnSpan = sendMailBtn.querySelector('span');
+            const originalBtnText = btnSpan ? btnSpan.textContent : 'Send';
+            if (btnSpan) btnSpan.textContent = 'Sending...';
+
+            if (sendMailStatus) {
+                sendMailStatus.textContent = 'Sending message...';
+                sendMailStatus.className = 'form-status';
+            }
+
+            const senderDisplayName = name ? `${name} <${email}>` : email;
+
+            try {
+                // 1. If custom Resend serverless function is configured:
+                if (CONTACT_CONFIG.resendEndpoint) {
+                    const res = await fetch(CONTACT_CONFIG.resendEndpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, email, message, to: CONTACT_CONFIG.recipientEmail })
+                    });
+                    if (!res.ok) throw new Error('Failed to send via Resend endpoint');
+                    showSuccess();
+                    return;
+                }
+
+                // 2. If Web3Forms access key is configured:
+                if (CONTACT_CONFIG.web3FormsKey) {
+                    const res = await fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            access_key: CONTACT_CONFIG.web3FormsKey,
+                            name: name || 'Portfolio Visitor',
+                            email: email,
+                            message: message,
+                            subject: `New Portfolio Message from ${name || email}`,
+                            from_name: name || 'Portfolio Visitor'
+                        })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        showSuccess();
+                        return;
+                    } else {
+                        throw new Error(data.message || 'Submission rejected');
+                    }
+                }
+
+                // 3. Default Fallback: Open email client with prefilled mailto
+                const mailtoUrl = `mailto:${CONTACT_CONFIG.recipientEmail}?subject=${encodeURIComponent('Portfolio Message from ' + (name || email))}&body=${encodeURIComponent(message + '\n\n---\nSent by: ' + senderDisplayName)}`;
+                window.location.href = mailtoUrl;
+
+                if (sendMailStatus) {
+                    sendMailStatus.textContent = 'Opening your email client to send to Meghana!';
+                    sendMailStatus.className = 'form-status success';
+                }
+                contactForm.reset();
+            } catch (err) {
+                console.warn('Form submission issue, opening mail client as fallback:', err);
+                const mailtoUrl = `mailto:${CONTACT_CONFIG.recipientEmail}?subject=${encodeURIComponent('Portfolio Message from ' + (name || email))}&body=${encodeURIComponent(message + '\n\n---\nSent by: ' + senderDisplayName)}`;
+                window.location.href = mailtoUrl;
+
+                if (sendMailStatus) {
+                    sendMailStatus.textContent = 'Opening email client to send to meghanaagnur@gmail.com!';
+                    sendMailStatus.className = 'form-status';
+                }
+            } finally {
+                sendMailBtn.disabled = false;
+                if (btnSpan) btnSpan.textContent = originalBtnText;
+            }
+
+            function showSuccess() {
+                if (sendMailStatus) {
+                    sendMailStatus.textContent = '✓ Message sent! I\'ll get back to you soon.';
+                    sendMailStatus.className = 'form-status success';
+                }
+                contactForm.reset();
             }
         });
-
-        // IntersectionObserver: Pause animations when offscreen to conserve resources
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        siteFooter.classList.remove('banner-paused');
-                    } else {
-                        siteFooter.classList.add('banner-paused');
-                    }
-                });
-            }, { threshold: 0.05 });
-            observer.observe(siteFooter);
-        }
     }
 });

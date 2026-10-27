@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day Swan Pond Animation — Video Recording Studio</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f5f6f9;
+            color: #1a1a1a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow: hidden;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Clean Studio Canvas */
+        .stage-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f6f9;
+            transition: all 0.3s ease;
+        }
+
+        .banner-viewport {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Aspect ratio modes */
+        .mode-fullscreen .banner-viewport {
+            max-width: 100%;
+            height: 100%;
+        }
+
+        .mode-fullscreen .hero-banner {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: unset;
+        }
+
+        .mode-16-9 .banner-viewport {
+            max-width: 92vw;
+            height: auto;
+        }
+
+        .mode-16-9 .hero-banner {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        .mode-banner .banner-viewport {
+            max-width: 960px;
+            width: 94vw;
+            height: auto;
+        }
+
+        .mode-banner .hero-banner {
+            width: 100%;
+            aspect-ratio: 4 / 1;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        .hero-banner {
+            position: relative;
+            overflow: hidden;
+            background-color: #2b3b42;
+            cursor: crosshair;
+        }
+
+        .hero-banner.soft-edges {
+            -webkit-mask-image: linear-gradient(
+                to bottom,
+                transparent 0%,
+                black 6%,
+                black 94%,
+                transparent 100%
+            );
+            mask-image: linear-gradient(
+                to bottom,
+                transparent 0%,
+                black 6%,
+                black 94%,
+                transparent 100%
+            );
+        }
+
+        /* Floating Studio Toolbar */
+        .studio-toolbar {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            padding: 8px 14px;
+            border-radius: 9999px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .studio-toolbar.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, 20px);
+        }
+
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .toolbar-divider {
+            width: 1px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.12);
+            margin: 0 4px;
+        }
+
+        .toolbar-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: #1a1a1a;
+            padding: 6px 12px;
+            border-radius: 9999px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.18s ease;
+        }
+
+        .toolbar-btn:hover {
+            background: rgba(0, 0, 0, 0.06);
+        }
+
+        .toolbar-btn.active {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .recording-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #e11d48;
+            padding: 4px 8px;
+            background: rgba(225, 29, 72, 0.08);
+            border-radius: 9999px;
+        }
+
+        .rec-dot {
+            width: 8px;
+            height: 8px;
+            background: #e11d48;
+            border-radius: 50%;
+            animation: pulseRec 1.5s infinite;
+        }
+
+        @keyframes pulseRec {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        /* Press Space to toggle UI toast */
+        .toast-hint {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.75);
+            color: #ffffff;
+            font-size: 0.82rem;
+            padding: 6px 16px;
+            border-radius: 9999px;
+            pointer-events: none;
+            z-index: 1000;
+            transition: opacity 0.4s ease;
+        }
+
+        .toast-hint.fade-out {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="mode-fullscreen">
+
+    <div class="toast-hint" id="toastHint">
+        Tip: Press <strong>Space</strong> or <strong>H</strong> to hide/show controls for a clean video recording
+    </div>
+
+    <div class="stage-container" id="stageContainer">
+        <div class="banner-viewport">
+            <div class="hero-banner" id="heroBanner">
+                <!-- Layer 1: Water Background (Day) -->
+                <div class="banner-layer-group layer-pond pond-drift">
+                    <img src="banner/pond-day.webp" alt="Day Pond Water" class="banner-layer banner-layer-day" style="opacity: 1;">
+                </div>
+
+                <!-- Water Ripples -->
+                <span class="ripple-ring ripple-beak ripple-delay-1" aria-hidden="true"></span>
+                <span class="ripple-ring ripple-beak ripple-delay-2" aria-hidden="true"></span>
+                <span class="ripple-ring ripple-beak ripple-delay-3" aria-hidden="true"></span>
+                <span class="ripple-ring ripple-chest" aria-hidden="true"></span>
+
+                <!-- Layer 2: Left Swan (Day) -->
+                <div class="banner-layer-group layer-swan-left swan-left-dip">
+                    <div class="swan-left-bob">
+                        <img src="banner/swan-left-day.webp" alt="Left Swan" class="banner-layer banner-layer-day" style="opacity: 1;">
+                    </div>
+                </div>
+
+                <!-- Layer 3: Right Swan (Day) -->
+                <div class="banner-layer-group layer-swan-right swan-right-glide">
+                    <div class="swan-right-bob">
+                        <img src="banner/swan-right-day.webp" alt="Right Swan" class="banner-layer banner-layer-day" style="opacity: 1;">
+                    </div>
+                </div>
+
+                <!-- Layer 4: Light Shimmer Overlay -->
+                <div class="banner-shimmer" aria-hidden="true">
+                    <img src="banner/pond-day.webp" alt="" class="banner-layer banner-layer-day" style="opacity: 1;">
+                </div>
+
+                <!-- Layer 5: Floating Petals -->
+                <div class="banner-petals" aria-hidden="true">
+                    <span class="petal petal-1"></span>
+                    <span class="petal petal-2"></span>
+                    <span class="petal petal-3"></span>
+                    <span class="petal petal-4"></span>
+                </div>
+
+                <!-- Layer 6: Tactile Grain Texture Overlay -->
+                <div class="grain-overlay" aria-hidden="true"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Recording Toolbar -->
+    <div class="studio-toolbar" id="studioToolbar">
+        <div class="recording-badge">
+            <span class="rec-dot"></span>
+            <span>DAY ANIMATION ACTIVE</span>
+        </div>
+
+        <div class="toolbar-divider"></div>
+
+        <!-- Auto-Swim Toggle -->
+        <div class="toolbar-group">
+            <button class="toolbar-btn active" id="btnAutoSwim" title="Automatically swim in a natural organic path">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <span>Auto-Swim</span>
+            </button>
+            <button class="toolbar-btn" id="btnFeather" title="Toggle soft feathered edges">
+                <span>Soft Edges</span>
+            </button>
+        </div>
+
+        <div class="toolbar-divider"></div>
+
+        <!-- Aspect Ratio Controls -->
+        <div class="toolbar-group">
+            <button class="toolbar-btn active" data-mode="mode-fullscreen">Full Window</button>
+            <button class="toolbar-btn" data-mode="mode-16-9">16:9 Video</button>
+            <button class="toolbar-btn" data-mode="mode-banner">Banner (4:1)</button>
+        </div>
+
+        <div class="toolbar-divider"></div>
+
+        <button class="toolbar-btn" id="btnFullscreen" title="Fullscreen (F)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+            <span>Fullscreen</span>
+        </button>
+
+        <button class="toolbar-btn" id="btnHideUI" title="Hide Toolbar (Space / H)">
+            <span>Hide Controls (Space)</span>
+        </button>
+    </div>
+
+    <script>
+        const heroBanner = document.getElementById('heroBanner');
+        const layerRightSwan = heroBanner.querySelector('.layer-swan-right');
+        const layerLeftSwan = heroBanner.querySelector('.layer-swan-left');
+        const layerPond = heroBanner.querySelector('.layer-pond');
+
+        const studioToolbar = document.getElementById('studioToolbar');
+        const toastHint = document.getElementById('toastHint');
+        const btnAutoSwim = document.getElementById('btnAutoSwim');
+        const btnFeather = document.getElementById('btnFeather');
+        const btnFullscreen = document.getElementById('btnFullscreen');
+        const btnHideUI = document.getElementById('btnHideUI');
+
+        let autoSwimEnabled = true;
+        let isHovered = false;
+        let targetCursorX = 0;
+        let targetCursorY = 0;
+        let currentCursorX = 0;
+        let currentCursorY = 0;
+
+        let prevRightX = 0;
+        let prevRightY = 0;
+        let lastWakeTime = 0;
+        let lastRippleTime = 0;
+
+        // Auto-fade toast hint after 4s
+        setTimeout(() => {
+            toastHint.classList.add('fade-out');
+        }, 4000);
+
+        // Dynamic Water Ripple Spawner
+        function spawnRipple(xPercent, yPercent, isStrong = false) {
+            const ripple = document.createElement('span');
+            ripple.className = `interactive-ripple ${isStrong ? 'ripple-strong' : ''}`;
+            ripple.style.left = `${xPercent}%`;
+            ripple.style.top = `${yPercent}%`;
+            ripple.setAttribute('aria-hidden', 'true');
+            heroBanner.appendChild(ripple);
+
+            setTimeout(() => {
+                if (ripple.parentNode) {
+                    ripple.parentNode.removeChild(ripple);
+                }
+            }, isStrong ? 3000 : 2400);
+        }
+
+        // Pointer Move Handler
+        function handlePointerMove(e) {
+            const rect = heroBanner.getBoundingClientRect();
+            if (rect.width === 0 || rect.height === 0) return;
+
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+            const relX = clientX - rect.left;
+            const relY = clientY - rect.top;
+
+            targetCursorX = Math.max(-1.1, Math.min(1.1, (relX / rect.width) * 2 - 1));
+            targetCursorY = Math.max(-1.1, Math.min(1.1, (relY / rect.height) * 2 - 1));
+            isHovered = true;
+
+            const now = performance.now();
+            if (now - lastRippleTime > 260) {
+                lastRippleTime = now;
+                const xPercent = (relX / rect.width) * 100;
+                const yPercent = (relY / rect.height) * 100;
+                if (yPercent > 15 && yPercent < 88) {
+                    spawnRipple(xPercent, yPercent, false);
+                }
+            }
+        }
+
+        function handlePointerLeave() {
+            isHovered = false;
+        }
+
+        function handlePointerClick(e) {
+            const rect = heroBanner.getBoundingClientRect();
+            const relX = e.clientX - rect.left;
+            const relY = e.clientY - rect.top;
+            spawnRipple((relX / rect.width) * 100, (relY / rect.height) * 100, true);
+        }
+
+        heroBanner.addEventListener('mousemove', handlePointerMove, { passive: true });
+        heroBanner.addEventListener('touchmove', handlePointerMove, { passive: true });
+        heroBanner.addEventListener('mouseleave', handlePointerLeave);
+        heroBanner.addEventListener('click', handlePointerClick);
+
+        // Continuous Cinematic Animation Loop
+        function animateBanner(time) {
+            // If Auto-Swim is on and user is not manually moving mouse over banner
+            if (autoSwimEnabled && !isHovered) {
+                const t = time * 0.0008;
+                // Graceful Lissajous / figure-8 swimming path
+                targetCursorX = Math.sin(t) * 0.75 + Math.cos(t * 0.5) * 0.2;
+                targetCursorY = Math.cos(t * 1.3) * 0.45;
+
+                // Spawn natural gentle water wake while swimming
+                if (time - lastRippleTime > 650) {
+                    lastRippleTime = time;
+                    const rX = 72 + targetCursorX * 18;
+                    const rY = 42 + targetCursorY * 12;
+                    spawnRipple(rX, rY, false);
+                }
+            } else if (!isHovered) {
+                targetCursorX = 0;
+                targetCursorY = 0;
+            }
+
+            // Smooth spring damping
+            const lerpFactor = 0.045;
+            currentCursorX += (targetCursorX - currentCursorX) * lerpFactor;
+            currentCursorY += (targetCursorY - currentCursorY) * lerpFactor;
+
+            // 1. Right Swan Glide & Bank Physics
+            const rightMoveX = currentCursorX * 42;
+            const rightMoveY = currentCursorY * 20;
+
+            const vx = rightMoveX - prevRightX;
+            const vy = rightMoveY - prevRightY;
+            prevRightX = rightMoveX;
+            prevRightY = rightMoveY;
+
+            const speed = Math.hypot(vx, vy);
+            const rawBank = (vx * 1.8) + (currentCursorX * 4);
+            const clampedBank = Math.max(-9, Math.min(9, rawBank));
+
+            layerRightSwan.style.transform = `translate3d(${rightMoveX}px, ${rightMoveY}px, 0) rotate(${clampedBank}deg)`;
+
+            // Right swan swimming wake ripples
+            if (speed > 0.45 && time - lastWakeTime > 340) {
+                lastWakeTime = time;
+                const rect = heroBanner.getBoundingClientRect();
+                if (rect.width > 0) {
+                    const swanBaseX = rect.width * 0.72 + rightMoveX;
+                    const swanBaseY = rect.height * 0.38 + rightMoveY;
+                    const wakeX = swanBaseX - (vx * 6) - 15;
+                    const wakeY = swanBaseY - (vy * 4) + 10;
+                    spawnRipple((wakeX / rect.width) * 100, (wakeY / rect.height) * 100, false);
+                }
+            }
+
+            // 2. Left Swan Counter-Perspective
+            const leftMoveX = -currentCursorX * 14;
+            const leftMoveY = -currentCursorY * 8;
+            const leftTilt = -currentCursorX * 3.2;
+            layerLeftSwan.style.transform = `translate3d(${leftMoveX}px, ${leftMoveY}px, 0) rotate(${leftTilt}deg)`;
+
+            // 3. Pond Water Parallax
+            if (layerPond) {
+                const pondX = -currentCursorX * 8;
+                const pondY = -currentCursorY * 4;
+                layerPond.style.transform = `translate3d(${pondX}px, ${pondY}px, 0)`;
+            }
+
+            requestAnimationFrame(animateBanner);
+        }
+
+        requestAnimationFrame(animateBanner);
+
+        // Aspect Ratio buttons
+        document.querySelectorAll('[data-mode]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('[data-mode]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.body.className = btn.dataset.mode;
+            });
+        });
+
+        // Auto-swim toggle
+        btnAutoSwim.addEventListener('click', () => {
+            autoSwimEnabled = !autoSwimEnabled;
+            btnAutoSwim.classList.toggle('active', autoSwimEnabled);
+        });
+
+        // Soft Edges toggle
+        btnFeather.addEventListener('click', () => {
+            heroBanner.classList.toggle('soft-edges');
+            btnFeather.classList.toggle('active');
+        });
+
+        // Fullscreen toggle
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+        btnFullscreen.addEventListener('click', toggleFullscreen);
+
+        // Hide / Show UI Controls
+        function toggleUI() {
+            studioToolbar.classList.toggle('hidden');
+            if (studioToolbar.classList.contains('hidden')) {
+                toastHint.textContent = 'Controls hidden. Press Space or click anywhere to show controls.';
+                toastHint.classList.remove('fade-out');
+                setTimeout(() => toastHint.classList.add('fade-out'), 2500);
+            }
+        }
+        btnHideUI.addEventListener('click', toggleUI);
+
+        // Keyboard shortcuts
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.key.toLowerCase() === 'h') {
+                e.preventDefault();
+                toggleUI();
+            } else if (e.key.toLowerCase() === 'f') {
+                e.preventDefault();
+                toggleFullscreen();
+            }
+        });
+    </script>
+</body>
+</html>

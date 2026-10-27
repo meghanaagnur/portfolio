@@ -1,0 +1,46 @@
+/* ===================================================
+   Interactive Pixel Art Cat Companion Component
+   Self-contained corner widget
+   =================================================== */
+
+:root {
+  --cat-size: 96px;
+  --cat-left: 24px;
+  --cat-bottom: 24px;
+  --cat-z-index: 9999;
+  --cat-sprite-url: url('../../public/assets/cat_spritesheet_4x3.png');
+}
+
+.pixel-cat-companion {
+  position: fixed;
+  left: var(--cat-left);
+  bottom: var(--cat-bottom);
+  width: var(--cat-size);
+  height: var(--cat-size);
+  z-index: var(--cat-z-index);
+  pointer-events: none;
+  user-select: none;
+  background-image: var(--cat-sprite-url);
+  background-repeat: no-repeat;
+  /* 4 columns x 3 rows grid of 144x144 cells */
+  background-size: calc(var(--cat-size) * 4) calc(var(--cat-size) * 3);
+  background-position: 0 0;
+
+  /* True crisp pixel-art rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+
+  /* Zero decorations, no border, no shadow, no glow */
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+/* Reduced motion preference: static idle-01 frame with no animation */
+@media (prefers-reduced-motion: reduce) {
+  .pixel-cat-companion {
+    background-position: 0 0 !important;
+  }
+}

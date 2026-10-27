@@ -7,24 +7,26 @@
     --text-secondary: #a1a1aa;
     --text-muted: #71717a;
     --accent: #ffffff;
-    --border: #222222;
-    --border-hover: #444444;
+    --border: #38383e;
+    --border-hover: #585864;
+    --site-outline: #3e3e46;
+    --site-outline-hover: #585864;
     --nav-text: #888888;
     --nav-active: #ffffff;
     --link-color: #ffffff;
     --brand-pill-bg: rgba(255, 255, 255, 0.05);
-    --brand-pill-border: rgba(255, 255, 255, 0.12);
+    --brand-pill-border: rgba(255, 255, 255, 0.15);
     --brand-pill-hover-bg: rgba(255, 255, 255, 0.1);
     --brand-pill-text: #e4e4e7;
-    --avatar-ring: #222222;
+    --avatar-ring: #38383e;
     --avatar-glow: rgba(255, 255, 255, 0.12);
 
     /* Glare Button Tokens Dark */
     --btn-bg: rgba(255, 255, 255, 0.04);
     --btn-bg-hover: rgba(255, 255, 255, 0.08);
     --btn-text: #ffffff;
-    --btn-border: rgba(255, 255, 255, 0.14);
-    --btn-border-hover: rgba(255, 255, 255, 0.3);
+    --btn-border: rgba(255, 255, 255, 0.18);
+    --btn-border-hover: rgba(255, 255, 255, 0.35);
     --btn-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.4);
     --btn-shadow-hover: 0 8px 24px rgba(255, 255, 255, 0.08), 0 2px 6px rgba(255, 255, 255, 0.04);
 
@@ -49,24 +51,26 @@
     --text-secondary: #52525b;
     --text-muted: #8b8b93;
     --accent: #09090b;
-    --border: #e4e4e7;
-    --border-hover: #a1a1aa;
+    --border: #d4d4d8;
+    --border-hover: #8e959d;
+    --site-outline: #c4c7cc;
+    --site-outline-hover: #8e959d;
     --nav-text: #71717a;
     --nav-active: #09090b;
     --link-color: #09090b;
     --brand-pill-bg: #f4f4f5;
-    --brand-pill-border: #e4e4e7;
+    --brand-pill-border: #d4d4d8;
     --brand-pill-hover-bg: #ececee;
     --brand-pill-text: #18181b;
-    --avatar-ring: #e4e4e7;
+    --avatar-ring: #d4d4d8;
     --avatar-glow: rgba(0, 0, 0, 0.06);
 
     /* Glare Button Tokens Light */
     --btn-bg: #ffffff;
     --btn-bg-hover: #fafafa;
     --btn-text: #09090b;
-    --btn-border: #e4e4e7;
-    --btn-border-hover: #a1a1aa;
+    --btn-border: #d4d4d8;
+    --btn-border-hover: #8e959d;
     --btn-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
     --btn-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
 
@@ -103,16 +107,19 @@ body {
 
 /* Global Smooth Transitions for Theme Switching */
 nav, 
+.layout-container,
 .profile-section, 
 .project-card, 
 .tech-item, 
-.contact-card, 
+.contact-strip-item,
+.contact-item-icon, 
 .divider, 
 .timeline-dot,
 .glare-button,
 .theme-toggle,
 .views,
-.graph-cell {
+.graph-cell,
+.classic-footer {
     transition: background-color 0.25s ease, 
                 border-color 0.25s ease, 
                 color 0.25s ease, 
@@ -120,11 +127,15 @@ nav,
 }
 
 .layout-container {
+    width: 100%;
     max-width: 960px;
     margin: 0 auto;
-    padding: 1.5rem 2rem;
+    padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
+    border-left: 1px dashed var(--site-outline);
+    border-right: 1px dashed var(--site-outline);
+    position: relative;
 }
 
 /* Nav */
@@ -226,28 +237,51 @@ nav {
 
 /* Divider */
 .divider {
-    width: 100vw;
-    border-bottom: 1px dashed var(--border);
+    width: 100%;
+    border-bottom: 1px dashed var(--site-outline);
     margin: 0;
-    transition: border-color 0.3s;
+    height: 0;
+    transition: border-color 0.25s ease;
+}
+
+/* In-column section separator (dashed, matches reference style) */
+.section-divider {
+    width: 100%;
+    border: none;
+    border-top: 1px dashed var(--site-outline);
+    margin: 0;
+    height: 0;
+    transition: border-color 0.25s ease;
 }
 
 /* Hero Banner Component */
 .banner {
-    width: 100%;
-    margin: 1.5rem 0;
+    width: calc(100% + 4rem);
+    margin: 0 -2rem;
 }
 
 .hero-banner {
     position: relative;
     width: 100%;
-    aspect-ratio: 3 / 1;
+    aspect-ratio: 4 / 1;
     overflow: hidden;
-    border-radius: 16px;
+    border-radius: 0;
     background-color: transparent;
     container-type: inline-size;
-    -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 68%, rgba(0, 0, 0, 0) 100%);
-    mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 68%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 7%,
+        black 93%,
+        transparent 100%
+    );
+    mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 7%,
+        black 93%,
+        transparent 100%
+    );
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-size: 100% 100%;
@@ -697,7 +731,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 2rem 0;
+    padding: 1rem 0;
 }
 
 .profile-main {
@@ -707,8 +741,8 @@ nav {
 }
 
 .profile-pic {
-    width: 120px;
-    height: 120px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     overflow: hidden;
     background: transparent;
@@ -763,7 +797,7 @@ nav {
 .profile-actions {
     display: flex;
     gap: 0.75rem;
-    margin-top: 1.25rem;
+    margin-top: 0.75rem;
     flex-wrap: wrap;
     align-items: center;
 }
@@ -907,7 +941,7 @@ nav {
 
 /* Content Sections */
 .content-section {
-    padding: 2rem 0;
+    padding: 1.25rem 0;
 }
 
 .section-title {
@@ -1092,6 +1126,7 @@ nav {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top center;
     transition: transform 0.3s;
 }
 
@@ -1645,780 +1680,370 @@ nav {
 }
 
 /* ===================================================
-   Swiss Lake Themed Scenic Footer (Matching Banner Aesthetic)
+   Connect Form & Classic Footer
    =================================================== */
 
-.site-footer {
+/* ===================================================
+   Contact Strip Section (Reference Blueprint Layout)
+   =================================================== */
+
+/* ===================================================
+   Contact Section & Form (Reference Spec)
+   =================================================== */
+
+.contact-strip-section {
+    padding-top: 0;
+    padding-bottom: 0;
     width: 100%;
-    position: relative;
-    min-height: 720px;
-    overflow: hidden;
-    margin-top: 3.5rem;
-    border-top: 1px solid var(--border);
-    background-color: #09090b;
 }
 
-[data-theme="light"] .site-footer {
-    background-color: #f4f4f5;
-}
-
-.footer-scene-bg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    overflow: hidden;
-    cursor: default;
-}
-
-.footer-layer-group {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    user-select: none;
-}
-
-.footer-layer {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 62%;
-    pointer-events: none;
-    user-select: none;
-    transition: opacity 0.6s ease-in-out;
-}
-
-/* Day / Night Theme Visibility & Crossfade */
-.footer-layer-day,
-.footer-boat-day {
-    opacity: 0;
-}
-
-.footer-layer-night,
-.footer-boat-night {
-    opacity: 1;
-}
-
-[data-theme="light"] .footer-layer-day,
-[data-theme="light"] .footer-boat-day {
-    opacity: 1;
-}
-
-[data-theme="light"] .footer-layer-night,
-[data-theme="light"] .footer-boat-night {
-    opacity: 0;
-}
-
-/* 1. Swiss Lake Background Drift */
-@keyframes footerLakeDrift {
-    0% {
-        transform: translateX(-0.7%) scale(1.01);
-    }
-    100% {
-        transform: translateX(0.7%) scale(1.03);
-    }
-}
-
-.footer-lake-drift {
-    animation: footerLakeDrift 26s ease-in-out infinite alternate;
-    will-change: transform;
-    transform-origin: 50% 60%;
-}
-
-/* 2. Moving Lake Waves Surface */
-.footer-waves-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 52%;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 2;
-}
-
-.lake-wave-band {
-    position: absolute;
-    width: 200%;
-    left: -50%;
-    pointer-events: none;
-    opacity: 0.55;
-    mix-blend-mode: overlay;
-    transition: opacity 0.6s ease;
-}
-
-[data-theme="light"] .lake-wave-band {
-    opacity: 0.68;
-    mix-blend-mode: soft-light;
-}
-
-.wave-band-1 {
-    bottom: 8%;
-    height: 28px;
-    animation: waveScroll1 10s linear infinite;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 800 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 Q 100 5, 200 20 T 400 20 T 600 20 T 800 20' fill='none' stroke='rgba(255,255,255,0.48)' stroke-width='2.8' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: repeat-x;
-}
-
-.wave-band-2 {
-    bottom: 24%;
-    height: 22px;
-    animation: waveScroll2 15s linear infinite;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 15 Q 75 4, 150 15 T 300 15 T 450 15 T 600 15' fill='none' stroke='rgba(255,255,255,0.38)' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: repeat-x;
-}
-
-.wave-band-3 {
-    bottom: 40%;
-    height: 18px;
-    animation: waveScroll1 20s linear infinite;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 500 25' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 12 Q 62 3, 125 12 T 250 12 T 375 12 T 500 12' fill='none' stroke='rgba(255,255,255,0.28)' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: repeat-x;
-}
-
-@keyframes waveScroll1 {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-400px); }
-}
-
-@keyframes waveScroll2 {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(300px); }
-}
-
-/* Ambient Lake Ripples */
-.lake-ambient-ripple {
-    position: absolute;
-    border: 1.5px solid var(--ripple-color);
-    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    box-sizing: border-box;
-    transform: translate(-50%, -50%) scaleY(0.5);
-    opacity: 0;
-    animation: ambientRippleLoop 10s ease-out infinite;
-}
-
-.ripple-pos-1 {
-    left: 28%;
-    bottom: 18%;
-    width: 65px;
-    height: 65px;
-    animation-delay: 0s;
-}
-
-.ripple-pos-2 {
-    left: 72%;
-    bottom: 30%;
-    width: 50px;
-    height: 50px;
-    animation-delay: 3.5s;
-}
-
-.ripple-pos-3 {
-    left: 50%;
-    bottom: 12%;
-    width: 80px;
-    height: 80px;
-    animation-delay: 6.8s;
-}
-
-@keyframes ambientRippleLoop {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scaleY(0.5) scale(0.2);
-    }
-    30% {
-        opacity: 0.6;
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scaleY(0.5) scale(2.0);
-    }
-}
-
-/* 3. Wooden Rowboat with Man Rowing - Continuous Calm Cruise */
-.footer-boat-group {
-    position: absolute;
-    bottom: 9%;
-    left: 0;
-    width: clamp(140px, 15vw, 210px);
-    aspect-ratio: 942 / 779;
-    z-index: 4;
-    pointer-events: none;
-    transform-origin: 50% 50%;
-    will-change: transform;
-    animation: boatCruiseAcross 42s linear infinite;
-    filter: drop-shadow(0 14px 14px rgba(0, 0, 0, 0.45));
-    transition: filter 0.6s ease;
-}
-
-[data-theme="light"] .footer-boat-group {
-    filter: drop-shadow(0 12px 10px rgba(12, 50, 70, 0.35));
-}
-
-@keyframes boatCruiseAcross {
-    0% {
-        transform: translate3d(calc(100vw + 60px), 0, 0);
-    }
-    100% {
-        transform: translate3d(calc(-100% - 140px), 0, 0);
-    }
-}
-
-.footer-boat-bob {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-origin: 50% 55%;
-    will-change: transform;
-    animation: boatRowingBob 4.8s ease-in-out infinite;
-}
-
-@keyframes boatRowingBob {
-    0%, 100% {
-        transform: translateY(0px) rotate(0deg);
-    }
-    22% {
-        transform: translateY(-5px) rotate(-1.2deg);
-    }
-    50% {
-        transform: translateY(1.5px) rotate(0.6deg);
-    }
-    75% {
-        transform: translateY(-3px) rotate(-0.4deg);
-    }
-}
-
-.footer-boat-layer {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: opacity 0.6s ease-in-out;
-    pointer-events: none;
-}
-
-/* Oar Wave Ripples */
-.oar-ripple {
-    position: absolute;
-    border: 1.5px solid var(--ripple-color);
-    border-radius: 50%;
-    pointer-events: none;
-    opacity: 0;
-    box-sizing: border-box;
-    transform: scaleY(0.5);
-    animation: oarRippleAnim 4.8s ease-out infinite;
-}
-
-.oar-ripple-left {
-    left: 4%;
-    top: 55%;
-    width: 44px;
-    height: 44px;
-    animation-delay: 0.8s;
-}
-
-.oar-ripple-right {
-    right: 4%;
-    bottom: 8%;
-    width: 48px;
-    height: 48px;
-    animation-delay: 1.0s;
-}
-
-@keyframes oarRippleAnim {
-    0% {
-        opacity: 0.75;
-        transform: translate(-50%, -50%) scaleY(0.5) scale(0.2);
-    }
-    50% {
-        opacity: 0.35;
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scaleY(0.5) scale(2.0);
-    }
-}
-
-/* Trailing Water Wake behind Boat */
-.footer-boat-wake {
-    position: absolute;
-    bottom: -4px;
-    right: -24px;
-    width: 120%;
-    height: 26px;
-    background: radial-gradient(ellipse at 70% 50%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 40%, transparent 75%);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: scaleY(0.45);
-    filter: blur(2px);
-    opacity: 0.6;
-    animation: boatWakePulse 4s ease-in-out infinite alternate;
-}
-
-@keyframes boatWakePulse {
-    0% {
-        opacity: 0.35;
-        transform: scaleY(0.45) scaleX(0.9);
-    }
-    100% {
-        opacity: 0.65;
-        transform: scaleY(0.45) scaleX(1.1);
-    }
-}
-
-/* 4. Filmic Tactile Grain Overlay */
-.grain-overlay {
-    position: absolute;
-    inset: -2%;
-    width: 104%;
-    height: 104%;
-    pointer-events: none;
-    user-select: none;
-    z-index: 5;
-    opacity: 0.46;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    animation: grainJitter 1.2s steps(4) infinite;
-}
-
-[data-theme="light"] .grain-overlay {
-    opacity: 0.36;
-    mix-blend-mode: multiply;
-}
-
-@keyframes grainJitter {
-    0%, 100% { transform: translate(0, 0); }
-    25% { transform: translate(-1%, 1%); }
-    50% { transform: translate(1%, -1%); }
-    75% { transform: translate(-1%, -1%); }
-}
-
-/* 3. Lake Shimmer Overlay */
-.footer-shimmer {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    user-select: none;
-    mix-blend-mode: soft-light;
-    opacity: 0.35;
-    z-index: 4;
-    animation: footerShimmerDrift 20s ease-in-out infinite alternate;
-}
-
-@keyframes footerShimmerDrift {
-    0% {
-        transform: translateX(-1.2%);
-        opacity: 0.28;
-    }
-    100% {
-        transform: translateX(1.2%);
-        opacity: 0.42;
-    }
-}
-
-/* 4. Alpine Breeze Floating Particles */
-.footer-particles {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    user-select: none;
-    z-index: 5;
-}
-
-.footer-particle {
-    position: absolute;
-    width: 8px;
-    height: 5px;
-    border-radius: 50% 0 50% 0;
-    background-color: var(--petal-color);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-    opacity: 0;
-    pointer-events: none;
-}
-
-.footer-particle.particle-1 {
-    left: -5%;
-    top: 55%;
-    animation: footerParticle1 26s linear infinite;
-}
-
-.footer-particle.particle-2 {
-    left: 10%;
-    top: 72%;
-    animation: footerParticle2 32s linear infinite;
-    animation-delay: -10s;
-}
-
-.footer-particle.particle-3 {
-    left: -5%;
-    top: 62%;
-    animation: footerParticle1 29s linear infinite;
-    animation-delay: -18s;
-}
-
-@keyframes footerParticle1 {
-    0% {
-        opacity: 0;
-        transform: translate(0, 0) rotate(0deg);
-    }
-    15% {
-        opacity: 0.85;
-        transform: translate(15vw, 2vh) rotate(60deg);
-    }
-    85% {
-        opacity: 0.85;
-        transform: translate(85vw, 8vh) rotate(300deg);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(105vw, 12vh) rotate(360deg);
-    }
-}
-
-@keyframes footerParticle2 {
-    0% {
-        opacity: 0;
-        transform: translate(0, 0) rotate(30deg);
-    }
-    20% {
-        opacity: 0.8;
-        transform: translate(20vw, -3vh) rotate(120deg);
-    }
-    80% {
-        opacity: 0.8;
-        transform: translate(75vw, 5vh) rotate(260deg);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(95vw, 10vh) rotate(360deg);
-    }
-}
-
-/* 5. Top Gradient Vignette */
-.footer-scene-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 6;
-    pointer-events: none;
-    background: linear-gradient(
-        180deg,
-        rgba(9, 9, 11, 0.78) 0%,
-        rgba(9, 9, 11, 0.25) 25%,
-        transparent 55%
-    );
-    transition: background 0.4s ease;
-}
-
-[data-theme="light"] .footer-scene-overlay {
-    background: linear-gradient(
-        180deg,
-        rgba(244, 244, 245, 0.82) 0%,
-        rgba(244, 244, 245, 0.25) 25%,
-        transparent 55%
-    );
-}
-
-.footer-container {
-    position: relative;
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    min-height: 680px;
-    padding-top: 3.5rem;
-    padding-bottom: 2rem;
-    box-sizing: border-box;
-    pointer-events: none;
-}
-
-/* Top Directory Grid (Brand CTA on Left, Open Motion Stage on Right) */
-.footer-top-grid {
-    display: grid;
-    grid-template-columns: 1.3fr 2.5fr;
-    gap: 3.5rem;
-    margin-bottom: 2.5rem;
-    pointer-events: none;
-}
-
-@media (max-width: 900px) {
-    .footer-top-grid {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-    }
-}
-
-.footer-brand-col {
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-    max-width: 360px;
-    background: rgba(9, 9, 11, 0.72);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 16px;
-    padding: 1.5rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    pointer-events: auto;
-}
-
-[data-theme="light"] .footer-brand-col {
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
-
-.footer-brand-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.footer-brand-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #60a5fa;
-}
-
-[data-theme="light"] .footer-brand-icon {
-    color: #2563eb;
-}
-
-.footer-brand-name {
-    font-size: 1.45rem;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: -0.02em;
-}
-
-[data-theme="light"] .footer-brand-name {
-    color: #0f172a;
-}
-
-.footer-brand-desc {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.72);
-    line-height: 1.65;
-}
-
-[data-theme="light"] .footer-brand-desc {
-    color: rgba(15, 23, 42, 0.72);
-}
-
-/* Social Icon Buttons (Matching Square Pills in Screenshot) */
-.footer-social-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 0.3rem;
-}
-
-.footer-social-btn {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-}
-
-.footer-social-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.35);
-    transform: translateY(-2px);
-}
-
-[data-theme="light"] .footer-social-btn {
-    background: rgba(15, 23, 42, 0.06);
-    border: 1px solid rgba(15, 23, 42, 0.12);
-    color: #0f172a;
-}
-
-[data-theme="light"] .footer-social-btn:hover {
-    background: rgba(15, 23, 42, 0.12);
-    border-color: rgba(15, 23, 42, 0.25);
-}
-
-/* 4-Column Directory (Matching Navvatic columns) */
-.footer-links-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-    background: rgba(9, 9, 11, 0.65);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 1.5rem 1.8rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    align-self: flex-start;
-    pointer-events: auto;
-}
-
-[data-theme="light"] .footer-links-grid {
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-}
-
-@media (max-width: 640px) {
-    .footer-links-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-    }
-}
-
-.footer-nav-col h4 {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 1.1rem;
-    letter-spacing: -0.01em;
-}
-
-[data-theme="light"] .footer-nav-col h4 {
-    color: #0f172a;
-}
-
-.footer-nav-col ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.footer-nav-col a {
-    color: rgba(255, 255, 255, 0.65);
-    text-decoration: none;
-    font-size: 0.88rem;
-    transition: color 0.2s ease, transform 0.2s ease;
-    display: inline-block;
-}
-
-.footer-nav-col a:hover {
-    color: #ffffff;
-    transform: translateX(2px);
-}
-
-[data-theme="light"] .footer-nav-col a {
-    color: rgba(15, 23, 42, 0.65);
-}
-
-[data-theme="light"] .footer-nav-col a:hover {
-    color: #0f172a;
-}
-
-/* Divider Bar (Matching Screenshot Line with Copyright & Made With) */
-.footer-divider-bar {
+.contact-header-wrap {
+    padding: 1.5rem 2rem 0.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.2rem 1.5rem;
-    background: rgba(9, 9, 11, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.75);
-    flex-wrap: wrap;
-    gap: 1rem;
-    pointer-events: auto;
-    margin-top: auto;
 }
 
-[data-theme="light"] .footer-divider-bar {
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    color: rgba(15, 23, 42, 0.75);
-}
-
-.footer-copy-text {
+.contact-main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
     font-weight: 400;
+    letter-spacing: normal;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.2;
 }
 
-.footer-made-text {
+/* Architectural diagonal hatch / striped accent banner (hidden/removed) */
+.contact-striped-banner {
+    display: none;
+}
+
+[data-theme="light"] .contact-striped-banner {
+    display: none;
+}
+
+.contact-body-wrap {
+    padding: 0.75rem 2rem 2.25rem;
+}
+
+.contact-intro {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 680px;
+    margin: 0 0 1.75rem 0;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 100%;
+}
+
+.contact-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.contact-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.contact-form-label {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.contact-form-input,
+.contact-form-textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.92rem;
+    font-family: inherit;
+    color: var(--text-primary);
+    outline: none;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-theme="light"] .contact-form-input,
+[data-theme="light"] .contact-form-textarea {
+    background: #fbfbfb;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.contact-form-input:focus,
+.contact-form-textarea:focus {
+    border-color: var(--border-hover);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 1px var(--border-hover);
+}
+
+[data-theme="light"] .contact-form-input:focus,
+[data-theme="light"] .contact-form-textarea:focus {
+    background: #ffffff;
+    border-color: var(--text-primary);
+    box-shadow: 0 0 0 1px var(--text-primary);
+}
+
+.contact-form-input::placeholder,
+.contact-form-textarea::placeholder {
+    color: var(--text-muted);
+    opacity: 0.65;
+}
+
+.contact-form-textarea {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.5;
+}
+
+.contact-form-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.25rem;
+}
+
+.contact-submit-btn {
+    position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-weight: 400;
+    gap: 0.55rem;
+    padding: 0.65rem 1.35rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: var(--brand-pill-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
-.heart-pulse {
-    display: inline-block;
-    transition: transform 0.2s;
+.contact-submit-btn:hover {
+    background: var(--brand-pill-hover-bg);
+    border-color: var(--border-hover);
+    transform: translateY(-1px);
 }
 
-.footer-made-text:hover .heart-pulse {
-    transform: scale(1.3);
+.contact-submit-btn:active {
+    transform: translateY(0);
 }
 
-/* Bottom Open Artwork Stage for Motion */
-.footer-artwork-stage {
-    position: relative;
+.contact-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.contact-submit-icon {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.contact-submit-btn:hover .contact-submit-icon {
+    transform: translate(2px, -2px);
+}
+
+.form-status {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+}
+
+.form-status.success {
+    color: #4ade80;
+}
+
+.form-status.error {
+    color: #f87171;
+}
+
+.contact-strip-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     width: 100%;
-    min-height: 260px;
-    flex-grow: 1;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    padding-bottom: 0.5rem;
-    pointer-events: none;
+    border-top: 1px dashed var(--site-outline);
+    background: transparent;
 }
 
-/* Floating Circular Arrow (Like Bottom-Right Button in Screenshot) */
-.footer-floating-arrow {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #ffffff;
+.contact-strip-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.15rem 1.25rem;
+    text-decoration: none;
+    color: var(--text-primary);
+    border-right: 1px dashed var(--site-outline);
+    background: transparent;
+    transition: background-color 0.2s ease, border-color 0.25s ease;
+    cursor: pointer;
+    min-width: 0;
+}
+
+.contact-strip-item:last-child {
+    border-right: none;
+}
+
+.contact-strip-item:hover {
+    background-color: var(--brand-pill-hover-bg);
+}
+
+.contact-item-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    background: var(--brand-pill-bg);
     display: flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    pointer-events: auto;
-    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    flex-shrink: 0;
+    color: var(--text-primary);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.footer-floating-arrow:hover {
-    transform: translateY(-4px) scale(1.08);
-    background: #2563eb;
-    border-color: #60a5fa;
-    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4);
+.contact-strip-item:hover .contact-item-icon {
+    border-color: var(--border-hover);
+    background: var(--brand-pill-hover-bg);
+    transform: scale(1.04);
 }
 
-[data-theme="light"] .footer-floating-arrow {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(15, 23, 42, 0.15);
-    color: #0f172a;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+.contact-item-info {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 0;
 }
 
-[data-theme="light"] .footer-floating-arrow:hover {
-    background: #0f172a;
-    color: #ffffff;
+.contact-item-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+}
+
+.contact-item-arrow {
+    color: var(--text-muted);
+    flex-shrink: 0;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.contact-strip-item:hover .contact-item-arrow {
+    color: var(--text-primary);
+    transform: translate(2px, -2px);
+}
+
+@media (max-width: 860px) {
+    .contact-header-wrap {
+        padding: 1.25rem 1.5rem 1rem;
+    }
+    .contact-body-wrap {
+        padding: 1.5rem;
+    }
+    .contact-strip-item {
+        padding: 1rem 0.75rem;
+        gap: 0.5rem;
+    }
+    .contact-item-icon {
+        width: 38px;
+        height: 38px;
+    }
+    .contact-item-label {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 720px) {
+    .contact-header-wrap {
+        padding: 1.25rem 1.25rem 1rem;
+    }
+    .contact-main-title {
+        font-size: 1.85rem;
+    }
+    .contact-body-wrap {
+        padding: 1.25rem;
+    }
+    .contact-form-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .contact-strip-item {
+        justify-content: center;
+        padding: 0.85rem 0.25rem;
+        gap: 0;
+    }
+    .contact-item-info {
+        display: none;
+    }
+    .contact-item-icon {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-header-wrap {
+        padding: 1rem 1rem 0.75rem;
+    }
+    .contact-body-wrap {
+        padding: 1rem;
+    }
+    .contact-item-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+    }
+    .contact-item-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Classic Minimal Footer */
+.classic-footer {
+    width: 100%;
+    border-bottom: 1px dashed var(--site-outline);
+    background: var(--bg-color);
+    padding: 1.5rem 0;
+    margin-top: 0;
+    transition: border-color 0.25s ease;
+}
+
+.classic-footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-copy {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+    .layout-container {
+        padding: 1.25rem 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .layout-container {
+        padding: 1rem 1rem;
+    }
 }
 

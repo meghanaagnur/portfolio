@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meghana Agnur | Resume</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    @page {
+      size: letter;
+      margin: 0.32in 0.45in;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #111827;
+      background: #ffffff;
+      line-height: 1.28;
+      font-size: 8.8pt;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .resume-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 0.45rem;
+      border-bottom: 1.2px solid #1f2937;
+      padding-bottom: 0.35rem;
+    }
+
+    h1 {
+      font-size: 18pt;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #111827;
+      text-transform: uppercase;
+      margin-bottom: 0.15rem;
+    }
+
+    .subtitle {
+      font-size: 9.2pt;
+      font-weight: 600;
+      color: #4b5563;
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.25rem 0.55rem;
+      font-size: 8.2pt;
+      color: #4b5563;
+    }
+
+    .contact-links a {
+      color: #1f2937;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-links span.sep {
+      color: #9ca3af;
+    }
+
+    /* Section Headings */
+    section {
+      margin-bottom: 0.45rem;
+    }
+
+    .section-title {
+      font-size: 9.6pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #111827;
+      border-bottom: 1px solid #d1d5db;
+      padding-bottom: 1.5px;
+      margin-bottom: 0.28rem;
+    }
+
+    /* Item Blocks */
+    .item {
+      margin-bottom: 0.32rem;
+    }
+
+    .item:last-child {
+      margin-bottom: 0;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.05rem;
+    }
+
+    .item-title {
+      font-weight: 700;
+      font-size: 8.9pt;
+      color: #111827;
+    }
+
+    .item-title .role {
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .item-title .tech-stack {
+      font-weight: 400;
+      font-size: 8.2pt;
+      color: #4b5563;
+      font-style: italic;
+    }
+
+    .item-date, .item-loc {
+      font-size: 8.2pt;
+      font-weight: 500;
+      color: #4b5563;
+      white-space: nowrap;
+    }
+
+    .item-sub {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 8.2pt;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 0.12rem;
+    }
+
+    /* Bullet Lists */
+    ul {
+      list-style-type: square;
+      padding-left: 1.1rem;
+      margin-top: 0.08rem;
+    }
+
+    li {
+      margin-bottom: 0.12rem;
+      font-size: 8.4pt;
+      color: #374151;
+      text-align: justify;
+    }
+
+    li strong {
+      color: #111827;
+    }
+
+    /* Skills Grid */
+    .skills-table {
+      width: 100%;
+      font-size: 8.4pt;
+      border-collapse: collapse;
+    }
+
+    .skills-table td {
+      padding: 0.08rem 0;
+      vertical-align: top;
+    }
+
+    .skills-table td.cat {
+      width: 125px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .skills-table td.vals {
+      color: #374151;
+    }
+
+    @media print {
+      body {
+        background: transparent;
+      }
+      .resume-container {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="resume-container">
+    <!-- Header -->
+    <header>
+      <h1>Meghana Agnur</h1>
+      <div class="subtitle">Frontend Developer &bull; Software Builder &bull; Applied AI / ML</div>
+      <div class="contact-links">
+        <span>Pune, Maharashtra, India</span>
+        <span class="sep">&bull;</span>
+        <a href="mailto:meghanaagnur@gmail.com">meghanaagnur@gmail.com</a>
+        <span class="sep">&bull;</span>
+        <a href="https://linkedin.com/in/meghana-agnur-84a294385" target="_blank">linkedin.com/in/meghana-agnur</a>
+        <span class="sep">&bull;</span>
+        <a href="https://github.com/meghanaagnur" target="_blank">github.com/meghanaagnur</a>
+        <span class="sep">&bull;</span>
+        <a href="https://x.com/AgnurMegha28665" target="_blank">x.com/AgnurMegha28665</a>
+      </div>
+    </header>
+
+    <!-- Education -->
+    <section>
+      <div class="section-title">Education</div>
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">AISSMS Institute of Information Technology (AISSMS IOIT)</span>
+          <span class="item-loc">Pune, India</span>
+        </div>
+        <div class="item-sub">
+          <span>Bachelor of Technology (B.Tech) in Information Technology &bull; <strong>CGPA: 9.35 / 10.0</strong> (First Year)</span>
+          <span class="item-date">2024 &ndash; 2028</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Skills -->
+    <section>
+      <div class="section-title">Technical Skills</div>
+      <table class="skills-table">
+        <tr>
+          <td class="cat">Languages:</td>
+          <td class="vals">Python, C++, JavaScript (ES6+), TypeScript, Dart, Solidity, HTML5, CSS3</td>
+        </tr>
+        <tr>
+          <td class="cat">Frontend &amp; Mobile:</td>
+          <td class="vals">React.js, Next.js, Flutter, Tailwind CSS, Radix UI, Playwright</td>
+        </tr>
+        <tr>
+          <td class="cat">Backend &amp; Storage:</td>
+          <td class="vals">Node.js, Express.js, Firebase, ChromaDB (Vector DB), REST APIs, web3.py</td>
+        </tr>
+        <tr>
+          <td class="cat">AI &amp; Developer Tools:</td>
+          <td class="vals">PyTorch, Google Gemini APIs, Ollama / Mistral 7B, Git, GitHub, Linux, Figma, Vercel</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Projects -->
+    <section>
+      <div class="section-title">Featured Projects</div>
+
+      <!-- Project 1 -->
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">VaariSarthi: Pilgrim Group Tracking &amp; Safety Platform</span>
+          <span class="item-date">Top 100 Finalist</span>
+        </div>
+        <div class="item-sub">
+          <span class="tech-stack">Flutter, Firebase, Google Maps SDK, Twilio SMS API</span>
+        </div>
+        <ul>
+          <li>Engineered a safety tracking app for 1M+ pilgrims across the 250 to 300km Pandharpur Wari pilgrimage.</li>
+          <li>Implemented real time GPS tracking with drift alerts, SOS emergency SMS dispatching, and bilingual (Marathi/English) UI.</li>
+          <li>Integrated AI assisted lost and found matching to reconnect separated pilgrims with their groups.</li>
+        </ul>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">Codence: AI Architectural Decision Records (ADR) at PR Review</span>
+          <span class="item-date">Hackathon Finalist</span>
+        </div>
+        <div class="item-sub">
+          <span class="tech-stack">Next.js, Tailwind CSS, Node.js, ChromaDB, Ollama / Mistral 7B</span>
+        </div>
+        <ul>
+          <li>Built an automated knowledge-capture system conducting interactive AI voice interviews with developers during pull requests.</li>
+          <li>Vectorized discussions into ChromaDB via local Mistral 7B models, enabling cited conversational search on codebase history.</li>
+        </ul>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">VibeCheck: Deterministic Code Output Auditing Engine</span>
+          <span class="item-date">Working Prototype</span>
+        </div>
+        <div class="item-sub">
+          <span class="tech-stack">Next.js, Node.js, Playwright, Python</span>
+        </div>
+        <ul>
+          <li>Created a deterministic evaluation pipeline detecting gaps between prompt specifications and rendered front-end code.</li>
+          <li>Replaced circular LLM-as-a-judge patterns with deterministic DOM and AST diffing via headless Playwright automation.</li>
+        </ul>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">AgentPassport: On Chain Identity &amp; Reputation Registry for AI Agents</span>
+          <span class="item-date">Monad Blitz Hackathon</span>
+        </div>
+        <div class="item-sub">
+          <span class="tech-stack">Solidity, Monad Testnet, Google Gemini Agents, web3.py</span>
+        </div>
+        <ul>
+          <li>Architected an on chain verification and decentralized reputation protocol for autonomous AI agents on Monad Testnet.</li>
+          <li>Authored Solidity smart contracts and built a custom web3.py transaction signing workaround to bypass wallet RPC limits.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Experience, Open Source & Fellowships -->
+    <section>
+      <div class="section-title">Experience &amp; Open Source Fellowships</div>
+
+      <!-- Item 1: OSCI & GitMastery -->
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">Open Source Contributor <span class="role">&bull; Open Source Community India (OSCI) &amp; SWOC</span></span>
+          <span class="item-date">Sep 2026 &ndash; Present</span>
+        </div>
+        <ul>
+          <li>Contributed to <strong>GitMastery</strong>: built print-friendly cheat sheet export, dual-render DOM workarounds for Radix UI, and German/English i18n support.</li>
+          <li>Active contributor in <strong>Social Winter of Code (SWOC)</strong>: triaged issues, submitted PRs, and collaborated on open Git workflows.</li>
+        </ul>
+      </div>
+
+      <!-- Item 2: Stanford Code in Place -->
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">Selected Student &amp; Mentee <span class="role">&bull; Code in Place, Stanford University</span></span>
+          <span class="item-date">2026 &ndash; Ongoing</span>
+        </div>
+        <ul>
+          <li>Selected into Stanford University's global CS initiative; completed advanced Python algorithmic thinking and computational problem-solving under Stanford instructors.</li>
+        </ul>
+      </div>
+
+      <!-- Item 3: Aspire Leaders & DoraDAO -->
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">Global Fellow &amp; Aspire Leader <span class="role">&bull; Aspire Institute, DoraDAO &amp; Codess.Cafe</span></span>
+          <span class="item-date">2026</span>
+        </div>
+        <ul>
+          <li><strong>Aspire Leaders Program:</strong> Selected for global leadership initiative founded by Harvard Business School faculty; engaged in cross-cultural problem solving.</li>
+          <li><strong>DoraDAO (Girls Who Yap):</strong> Completed intensive fellowship for women building in AI and Web3, delivering weekly build challenges and rapid prototypes.</li>
+          <li><strong>Codess.Cafe:</strong> Active mentee engaging in technical interview prep, peer mentorship, and collaborative coding sessions.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Leadership & Extracurriculars -->
+    <section>
+      <div class="section-title">Leadership &amp; Campus Involvement</div>
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">Joint Secretary (Anchoring Domain) <span class="role">&bull; Training &amp; Placement (T&P) Cell, AISSMS IOIT</span></span>
+          <span class="item-date">Ongoing</span>
+        </div>
+        <ul>
+          <li>Coordinated anchoring and communication for campus placement drives and college-wide hackathons (Tecathon).</li>
+        </ul>
+      </div>
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">Project Team Member <span class="role">&bull; AWS Student Building Group (AWS SBG), AISSMS IOIT</span></span>
+          <span class="item-date">Ongoing</span>
+        </div>
+        <ul>
+          <li>Collaborated on hands-on cloud computing workshops, DevOps pipelines, and AI/ML project architecture.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+</body>
+</html>

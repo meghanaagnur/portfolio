@@ -15,11 +15,23 @@
     width: 100%;
     aspect-ratio: 3 / 1;
     overflow: hidden;
-    border-radius: 16px;
+    border-radius: 0;
     background-color: transparent;
     container-type: inline-size;
-    -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 68%, rgba(0, 0, 0, 0) 100%);
-    mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 68%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 7%,
+        black 93%,
+        transparent 100%
+    );
+    mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 7%,
+        black 93%,
+        transparent 100%
+    );
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-size: 100% 100%;
@@ -29,7 +41,7 @@
 @media (max-width: 768px) {
     .hero-banner {
         aspect-ratio: 21 / 9;
-        border-radius: 12px;
+        border-radius: 0;
     }
 }
 

@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel Cat Companion — 12-Frame Sprite Sheet & Interactive Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0e14;
+      --card-bg: rgba(22, 27, 34, 0.75);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --accent: #8b5cf6;
+      --accent-glow: rgba(139, 92, 246, 0.35);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --pink: #f472b6;
+      --green: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      padding: 2.5rem 1.5rem 4rem;
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(139, 92, 246, 0.12), transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(244, 114, 182, 0.1), transparent 45%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .pixel-badge {
+      display: inline-block;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.65rem;
+      color: var(--pink);
+      background: rgba(244, 114, 182, 0.12);
+      border: 1px solid rgba(244, 114, 182, 0.3);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+      background: linear-gradient(135deg, #ffffff 40%, #c4b5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 820px) {
+      .grid-2col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.6rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .card-title .tag {
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(139, 92, 246, 0.2);
+      color: #c4b5fd;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+
+    /* Pixel art display stage */
+    .stage {
+      height: 240px;
+      background: #141721;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background-image: 
+        linear-gradient(45deg, #181c28 25%, transparent 25%), 
+        linear-gradient(-45deg, #181c28 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #181c28 75%), 
+        linear-gradient(-45deg, transparent 75%, #181c28 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+      overflow: hidden;
+    }
+
+    .stage-floor {
+      position: absolute;
+      bottom: 24px;
+      left: 15%;
+      right: 15%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.4), transparent);
+    }
+
+    .pixel-cat-sprite {
+      width: 144px;
+      height: 144px;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+      transition: transform 0.2s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .pixel-cat-sprite.zoom-2x {
+      transform: scale(1.3);
+    }
+
+    .controls-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+
+    .btn:hover {
+      background: rgba(139, 92, 246, 0.2);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 0.9rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .slider-wrap input[type="range"] {
+      flex: 1;
+      accent-color: var(--accent);
+    }
+
+    /* Interactive tracking arena */
+    .arena {
+      height: 240px;
+      background: #11141e;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      cursor: crosshair;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .arena-hint {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px 10px;
+      border-radius: 6px;
+      pointer-events: none;
+    }
+
+    .arena-status {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--pink);
+      background: rgba(244, 114, 182, 0.12);
+      padding: 4px 8px;
+      border-radius: 6px;
+      pointer-events: none;
+    }
+
+    /* Sprite sheet viewer */
+    .spritesheet-section {
+      margin-top: 2rem;
+    }
+
+    .frame-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 12px;
+      margin-top: 1rem;
+    }
+
+    .frame-cell {
+      background: #151924;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 10px 8px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .frame-cell:hover, .frame-cell.selected {
+      border-color: var(--accent);
+      background: rgba(139, 92, 246, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .frame-cell img {
+      width: 90px;
+      height: 90px;
+      image-rendering: pixelated;
+    }
+
+    .frame-num {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem;
+      color: var(--pink);
+      margin-top: 6px;
+    }
+
+    .frame-desc {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 4px;
+      line-height: 1.2;
+    }
+
+    /* Code Snippet Box */
+    .code-box {
+      margin-top: 2rem;
+      background: #11141e;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      position: relative;
+    }
+
+    .code-box pre {
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent);
+    }
+
+    /* Fixed corner cat widget (like portfolio corner) */
+    .corner-widget {
+      position: fixed;
+      bottom: 16px;
+      right: 20px;
+      z-index: 1000;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .corner-bubble {
+      background: rgba(15, 23, 42, 0.88);
+      color: #f1f5f9;
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 0.72rem;
+      margin-bottom: -10px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      font-family: 'Outfit', sans-serif;
+      white-space: nowrap;
+    }
+
+    .corner-bubble.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .corner-cat {
+      width: 96px;
+      height: 96px;
+      image-rendering: pixelated;
+      pointer-events: auto;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .corner-cat:hover {
+      transform: scale(1.08);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="pixel-badge">16-BIT PIXEL ART COMPANION</div>
+      <h1>Chibi Cat Animation Sprite Sheet</h1>
+      <p class="subtitle">
+        12 perfectly aligned frames with transparent background and true crisp pixel edges. Built for your portfolio corner companion.
+      </p>
+    </header>
+
+    <div class="grid-2col">
+      <!-- Player Card -->
+      <div class="card">
+        <div class="card-title">
+          <span>Animation Player</span>
+          <span class="tag" id="current-state-tag">EAR BRUSHING</span>
+        </div>
+
+        <div class="stage">
+          <img id="player-cat" class="pixel-cat-sprite zoom-2x" src="assets/cat-sprites/frames/frame_01.png" alt="Pixel Cat">
+          <div class="stage-floor"></div>
+        </div>
+
+        <div class="controls-row">
+          <button class="btn active" id="btn-idle">Ear Brushing (1-5)</button>
+          <button class="btn" id="btn-notice">Cursor Notice (6-8)</button>
+          <button class="btn" id="btn-look">Cursor Tracking (9-10)</button>
+          <button class="btn" id="btn-full">Full Sequence (1-12)</button>
+          <button class="btn" id="btn-pause">Pause</button>
+        </div>
+
+        <div class="slider-wrap">
+          <span>Speed:</span>
+          <input type="range" id="speed-slider" min="60" max="350" value="160">
+          <span id="speed-label">160ms</span>
+        </div>
+      </div>
+
+      <!-- Interactive Arena Card -->
+      <div class="card">
+        <div class="card-title">
+          <span>Interactive Cursor Tracking</span>
+          <span class="tag">REAL-TIME</span>
+        </div>
+
+        <div class="arena" id="arena">
+          <div class="arena-hint">Move cursor inside to test tracking</div>
+          <div class="arena-status" id="arena-status">IDLE GROOMING</div>
+          <img id="arena-cat" class="pixel-cat-sprite zoom-2x" src="assets/cat-sprites/frames/frame_01.png" alt="Interactive Cat">
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; line-height: 1.5;">
+          <strong>Behavior:</strong> The cat quietly grooms its ear in the corner. When your mouse enters or moves, it looks alert, tilts its head, and follows your cursor. When left undisturbed, it returns to relaxed grooming.
+        </p>
+      </div>
+    </div>
+
+    <!-- 12 Frame Breakdown Grid -->
+    <div class="card spritesheet-section">
+      <div class="card-title">
+        <span>12 Animation Frames (Grid Breakdown)</span>
+        <span class="tag">TRANSPARENT 144×144</span>
+      </div>
+
+      <div class="frame-grid" id="frame-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- Assets & Integration Code -->
+    <div class="card" style="margin-top: 2rem;">
+      <div class="card-title">
+        <span>Drop-in Portfolio Snippet</span>
+        <span class="tag">HTML + CSS</span>
+      </div>
+
+      <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
+        Add this single HTML snippet to your <a href="index.html" style="color: #c4b5fd;">index.html</a> before <code style="color: var(--pink);">&lt;/body&gt;</code> to put the animated cat companion quietly in the corner of your website:
+      </p>
+
+      <div class="code-box">
+        <button class="copy-btn" id="copy-btn">Copy Code</button>
+        <pre><code>&lt;!-- Corner Cat Companion Widget --&gt;
+&lt;div id="corner-cat-companion" style="position:fixed; bottom:20px; right:24px; z-index:9999; pointer-events:auto;"&gt;
+  &lt;img id="corner-cat-img" src="assets/cat-sprites/cat_idle_brushing.gif" 
+       alt="Cat Companion" 
+       style="width:84px; height:84px; image-rendering:pixelated; cursor:pointer;" 
+       title="Meow! Click me!"&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Corner Companion on this page -->
+  <div class="corner-widget">
+    <div class="corner-bubble" id="corner-bubble">Purr... welcome!</div>
+    <img id="corner-cat" class="corner-cat" src="assets/cat-sprites/frames/frame_01.png" alt="Corner Cat">
+  </div>
+
+  <script>
+    // Frame metadata
+    const frames = [
+      { id: 1, file: 'frame_01.png', group: 'Idle', desc: '1. Sitting normally with paws down' },
+      { id: 2, file: 'frame_02.png', group: 'Idle', desc: '2. Raising one paw toward ear' },
+      { id: 3, file: 'frame_03.png', group: 'Idle', desc: '3. Paw touching and brushing ear' },
+      { id: 4, file: 'frame_04.png', group: 'Idle', desc: '4. Continuing brush with head tilt' },
+      { id: 5, file: 'frame_05.png', group: 'Idle', desc: '5. Lowering paw, returning to sit' },
+      { id: 6, file: 'frame_06.png', group: 'Notice', desc: '6. Stops grooming, looks alert' },
+      { id: 7, file: 'frame_07.png', group: 'Notice', desc: '7. Turns head toward cursor' },
+      { id: 8, file: 'frame_08.png', group: 'Notice', desc: '8. Fully looking with curious eyes' },
+      { id: 9, file: 'frame_09.png', group: 'Look', desc: '9. Looking clearly toward left' },
+      { id: 10, file: 'frame_10.png', group: 'Look', desc: '10. Looking clearly toward right' },
+      { id: 11, file: 'frame_11.png', group: 'Return', desc: '11. Turns head center, relaxes' },
+      { id: 12, file: 'frame_12.png', group: 'Return', desc: '12. Raises paw again to resume' }
+    ];
+
+    // Render frame grid
+    const gridEl = document.getElementById('frame-grid');
+    frames.forEach(f => {
+      const cell = document.createElement('div');
+      cell.className = 'frame-cell';
+      cell.innerHTML = `
+        <img src="assets/cat-sprites/frames/${f.file}" alt="${f.desc}">
+        <span class="frame-num">#${f.id}</span>
+        <span class="frame-desc">${f.desc}</span>
+      `;
+      cell.addEventListener('click', () => {
+        document.querySelectorAll('.frame-cell').forEach(c => c.classList.remove('selected'));
+        cell.classList.add('selected');
+        stopPlayer();
+        playerCat.src = `assets/cat-sprites/frames/${f.file}`;
+        stateTag.textContent = `FRAME #${f.id}`;
+      });
+      gridEl.appendChild(cell);
+    });
+
+    // Player logic
+    const playerCat = document.getElementById('player-cat');
+    const stateTag = document.getElementById('current-state-tag');
+    const speedSlider = document.getElementById('speed-slider');
+    const speedLabel = document.getElementById('speed-label');
+    
+    let currentSequence = [1, 2, 3, 4, 3, 4, 5, 1];
+    let seqIndex = 0;
+    let timer = null;
+    let speed = 160;
+
+    speedSlider.addEventListener('input', (e) => {
+      speed = parseInt(e.target.value);
+      speedLabel.textContent = `${speed}ms`;
+      if (timer) {
+        startSequence(currentSequence, stateTag.textContent);
+      }
+    });
+
+    function playNext() {
+      seqIndex = (seqIndex + 1) % currentSequence.length;
+      const frameNum = currentSequence[seqIndex];
+      const padded = frameNum < 10 ? '0' + frameNum : frameNum;
+      playerCat.src = `assets/cat-sprites/frames/frame_${padded}.png`;
+    }
+
+    function startSequence(seq, label) {
+      if (timer) clearInterval(timer);
+      currentSequence = seq;
+      seqIndex = 0;
+      stateTag.textContent = label;
+      timer = setInterval(playNext, speed);
+      playNext();
+    }
+
+    function stopPlayer() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+      document.querySelectorAll('.controls-row .btn').forEach(b => b.classList.remove('active'));
+    }
+
+    document.getElementById('btn-idle').addEventListener('click', function() {
+      document.querySelectorAll('.controls-row .btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      startSequence([1, 2, 3, 4, 3, 4, 5, 1], 'EAR BRUSHING');
+    });
+
+    document.getElementById('btn-notice').addEventListener('click', function() {
+      document.querySelectorAll('.controls-row .btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      startSequence([6, 7, 8, 7], 'CURSOR NOTICE');
+    });
+
+    document.getElementById('btn-look').addEventListener('click', function() {
+      document.querySelectorAll('.controls-row .btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      startSequence([9, 8, 10, 8], 'CURSOR TRACKING');
+    });
+
+    document.getElementById('btn-full').addEventListener('click', function() {
+      document.querySelectorAll('.controls-row .btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      startSequence([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 'FULL SEQUENCE');
+    });
+
+    document.getElementById('btn-pause').addEventListener('click', function() {
+      stopPlayer();
+      this.classList.add('active');
+      stateTag.textContent = 'PAUSED';
+    });
+
+    // Start default
+    startSequence([1, 2, 3, 4, 3, 4, 5, 1], 'EAR BRUSHING');
+
+    // Interactive Arena Tracking
+    const arena = document.getElementById('arena');
+    const arenaCat = document.getElementById('arena-cat');
+    const arenaStatus = document.getElementById('arena-status');
+    let arenaIdleTimer = null;
+    let arenaGroomIndex = 0;
+    const groomFrames = [1, 2, 3, 4, 3, 4, 5, 1];
+
+    function runArenaIdle() {
+      arenaStatus.textContent = 'IDLE GROOMING';
+      if (!arenaIdleTimer) {
+        arenaIdleTimer = setInterval(() => {
+          arenaGroomIndex = (arenaGroomIndex + 1) % groomFrames.length;
+          const fn = groomFrames[arenaGroomIndex];
+          arenaCat.src = `assets/cat-sprites/frames/frame_0${fn}.png`;
+        }, 180);
+      }
+    }
+
+    runArenaIdle();
+
+    arena.addEventListener('mousemove', (e) => {
+      if (arenaIdleTimer) {
+        clearInterval(arenaIdleTimer);
+        arenaIdleTimer = null;
+      }
+
+      const rect = arena.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const arenaWidth = rect.width;
+      const ratio = mouseX / arenaWidth;
+
+      if (ratio < 0.38) {
+        arenaCat.src = 'assets/cat-sprites/frames/frame_09.png'; // looking left
+        arenaStatus.textContent = 'LOOKING LEFT';
+      } else if (ratio > 0.62) {
+        arenaCat.src = 'assets/cat-sprites/frames/frame_10.png'; // looking right
+        arenaStatus.textContent = 'LOOKING RIGHT';
+      } else {
+        arenaCat.src = 'assets/cat-sprites/frames/frame_08.png'; // looking center / up
+        arenaStatus.textContent = 'ALERT NOTICE';
+      }
+
+      clearTimeout(window.arenaResetTimeout);
+      window.arenaResetTimeout = setTimeout(() => {
+        arenaCat.src = 'assets/cat-sprites/frames/frame_11.png'; // relax center
+        arenaStatus.textContent = 'RELAXING';
+        setTimeout(runArenaIdle, 600);
+      }, 1200);
+    });
+
+    arena.addEventListener('mouseleave', () => {
+      arenaCat.src = 'assets/cat-sprites/frames/frame_11.png';
+      setTimeout(runArenaIdle, 400);
+    });
+
+    // Corner Cat on page
+    const cornerCat = document.getElementById('corner-cat');
+    const cornerBubble = document.getElementById('corner-bubble');
+    let cornerSeq = [1, 2, 3, 4, 3, 4, 5, 1];
+    let cornerIdx = 0;
+
+    setInterval(() => {
+      cornerIdx = (cornerIdx + 1) % cornerSeq.length;
+      const num = cornerSeq[cornerIdx];
+      cornerCat.src = `assets/cat-sprites/frames/frame_0${num}.png`;
+    }, 200);
+
+    const meows = ['Purr...', '*brushes ear*', 'Meow! (=^･ω･^=)', 'Need dev help?', 'Nice portfolio!'];
+    cornerCat.addEventListener('click', () => {
+      const msg = meows[Math.floor(Math.random() * meows.length)];
+      cornerBubble.textContent = msg;
+      cornerBubble.classList.add('show');
+      cornerCat.src = 'assets/cat-sprites/frames/frame_08.png';
+      setTimeout(() => cornerBubble.classList.remove('show'), 2000);
+    });
+
+    // Copy code button
+    document.getElementById('copy-btn').addEventListener('click', function() {
+      const code = document.querySelector('.code-box pre code').innerText;
+      navigator.clipboard.writeText(code);
+      this.textContent = 'Copied!';
+      setTimeout(() => this.textContent = 'Copy Code', 2000);
+    });
+  </script>
+</body>
+</html>
