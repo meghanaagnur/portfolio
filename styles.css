@@ -741,8 +741,9 @@ nav {
 }
 
 .profile-pic {
-    width: 90px;
-    height: 90px;
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
     border-radius: 50%;
     overflow: hidden;
     background: transparent;
@@ -761,14 +762,13 @@ nav {
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    object-position: center 25%;
-    transform: scale(1.28);
-    transform-origin: center 28%;
+    object-position: center;
+    transform: none;
     transition: transform 0.25s ease;
 }
 
 .profile-pic:hover img {
-    transform: scale(1.34);
+    transform: scale(1.04);
 }
 
 .profile-info {
@@ -2059,6 +2059,10 @@ nav {
 @media (max-width: 480px) {
     .layout-container {
         padding: 1rem 1rem;
+    }
+    .profile-pic {
+        width: 100px;
+        height: 100px;
     }
 }
 
