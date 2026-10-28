@@ -123,51 +123,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // === Tech Stack Marquee (Interactive) ===
     // Handled via CSS keyframes with pause-on-hover for seamless 60fps performance
 
-    // === Real Global View Counter ===
-    const viewCountElement = document.getElementById('view-count');
-    if (viewCountElement) {
-        const COUNTER_KEY = 'meghanaagnur-portfolio-views-v1';
+    // === Footer Visitor Counter with LocalStorage Protection ===
+    const footerVisitorText = document.getElementById('footerVisitorText');
+    if (footerVisitorText) {
+        const VISITOR_STORE_KEY = 'portfolio_visitor_counted_v1';
+        const VISITOR_NUM_KEY = 'portfolio_visitor_num_v1';
         const API_BASE = 'https://countapi.mileshilliard.com/api/v1';
-        const SESSION_FLAG = 'portfolio_view_counted';
-        const CACHE_KEY = 'portfolio_live_views';
+        const COUNTER_KEY = 'meghanaagnur-portfolio-visitors-v1';
 
-        // 1. Immediately display cached count to avoid layout shift
-        const cachedViews = localStorage.getItem(CACHE_KEY);
-        if (cachedViews) {
-            viewCountElement.textContent = Number(cachedViews).toLocaleString();
+        function getOrdinal(n) {
+            const s = ['th', 'st', 'nd', 'rd'],
+                  v = n % 100;
+            return n + (s[(v - 20) % 10] || s[v] || s[0]);
         }
 
-        // 2. Increment once per session, get for refreshes/subsequent pageviews in same session
-        const hasCountedSession = sessionStorage.getItem(SESSION_FLAG);
-        const endpoint = hasCountedSession 
-            ? `${API_BASE}/get/${COUNTER_KEY}` 
+        const savedVisitorNum = localStorage.getItem(VISITOR_NUM_KEY);
+        const hasBeenCounted = localStorage.getItem(VISITOR_STORE_KEY);
+
+        if (savedVisitorNum) {
+            footerVisitorText.textContent = `You are #${getOrdinal(parseInt(savedVisitorNum, 10))} visitor`;
+        }
+
+        // Only increment (hit) if this visitor has not been counted yet in this browser
+        const endpoint = hasBeenCounted 
+            ? `${API_BASE}/get/${COUNTER_KEY}`
             : `${API_BASE}/hit/${COUNTER_KEY}`;
 
-        // AbortController to avoid hanging on slow network
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 4000);
-
-        function animateCount(element, start, end) {
-            if (start === end || isNaN(start)) {
-                element.textContent = end.toLocaleString();
-                return;
-            }
-            const duration = 600;
-            const startTime = performance.now();
-            function updateNumber(now) {
-                const elapsed = now - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const eased = 1 - Math.pow(1 - progress, 2);
-                const current = Math.floor(start + (end - start) * eased);
-                element.textContent = current.toLocaleString();
-                if (progress < 1) {
-                    requestAnimationFrame(updateNumber);
-                } else {
-                    element.textContent = end.toLocaleString();
-                }
-            }
-            requestAnimationFrame(updateNumber);
-        }
 
         fetch(endpoint, { signal: controller.signal })
             .then(res => {
@@ -177,22 +160,24 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 clearTimeout(timeoutId);
                 if (data && typeof data.value === 'number') {
-                    const realCount = data.value;
-                    sessionStorage.setItem(SESSION_FLAG, 'true');
-                    localStorage.setItem(CACHE_KEY, realCount);
-
-                    const startNum = cachedViews ? parseInt(cachedViews, 10) : 0;
-                    animateCount(viewCountElement, startNum, realCount);
+                    const count = data.value;
+                    if (!hasBeenCounted) {
+                        localStorage.setItem(VISITOR_STORE_KEY, 'true');
+                        localStorage.setItem(VISITOR_NUM_KEY, count.toString());
+                    }
+                    const displayNum = hasBeenCounted && savedVisitorNum ? parseInt(savedVisitorNum, 10) : count;
+                    footerVisitorText.textContent = `You are #${getOrdinal(displayNum)} visitor`;
                 }
             })
             .catch(err => {
                 clearTimeout(timeoutId);
-                console.warn('Real view count fetch error:', err);
-                if (!cachedViews) {
-                    viewCountElement.textContent = '1';
+                console.warn('Visitor counter fetch:', err);
+                if (!savedVisitorNum) {
+                    footerVisitorText.textContent = 'Welcome visitor';
                 }
             });
     }
+
 
     // === Theme Switcher (Dark / Light Mode) ===
     const themeToggleBtn = document.getElementById('themeToggle');
@@ -493,6 +478,20 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
+    // === Experience Show More Toggle ===
+    const expShowMoreBtn = document.getElementById('expShowMoreBtn');
+    const expExtraItems = document.getElementById('expExtraItems');
+    if (expShowMoreBtn && expExtraItems) {
+        expShowMoreBtn.addEventListener('click', () => {
+            const isExpanded = expExtraItems.classList.toggle('expanded');
+            expShowMoreBtn.setAttribute('aria-expanded', isExpanded.toString());
+            const btnSpan = expShowMoreBtn.querySelector('span');
+            if (btnSpan) {
+                btnSpan.textContent = isExpanded ? 'Show less' : 'Show more';
+            }
+        });
+    }
 
     // === Back to Top Smooth Scroll ===
     const backToTopBtn = document.getElementById('backToTop');
