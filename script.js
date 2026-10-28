@@ -123,13 +123,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // === Tech Stack Marquee (Interactive) ===
     // Handled via CSS keyframes with pause-on-hover for seamless 60fps performance
 
-    // === Footer Visitor Counter with LocalStorage Protection ===
+    // === Footer Visitor Counter ===
     const footerVisitorText = document.getElementById('footerVisitorText');
     if (footerVisitorText) {
-        const VISITOR_STORE_KEY = 'portfolio_visitor_counted_v1';
-        const VISITOR_NUM_KEY = 'portfolio_visitor_num_v1';
         const API_BASE = 'https://countapi.mileshilliard.com/api/v1';
-        const COUNTER_KEY = 'meghanaagnur-portfolio-visitors-v1';
+        const COUNTER_KEY = 'meghanaagnur-portfolio-views-v1';
+        const SESSION_FLAG = 'portfolio_view_counted';
+        const CACHE_KEY = 'portfolio_live_visitors_v2';
+
+        // Clear legacy frozen storage key that had locked users on "1"
+        try {
+            localStorage.removeItem('portfolio_visitor_counted_v1');
+            localStorage.removeItem('portfolio_visitor_num_v1');
+        } catch (e) {}
 
         function getOrdinal(n) {
             const s = ['th', 'st', 'nd', 'rd'],
@@ -137,15 +143,29 @@ document.addEventListener('DOMContentLoaded', () => {
             return n + (s[(v - 20) % 10] || s[v] || s[0]);
         }
 
-        const savedVisitorNum = localStorage.getItem(VISITOR_NUM_KEY);
-        const hasBeenCounted = localStorage.getItem(VISITOR_STORE_KEY);
-
-        if (savedVisitorNum) {
-            footerVisitorText.textContent = `You are #${getOrdinal(parseInt(savedVisitorNum, 10))} visitor`;
+        function formatVisitor(n) {
+            return `You are the ${getOrdinal(n)} visitor`;
         }
 
-        // Only increment (hit) if this visitor has not been counted yet in this browser
-        const endpoint = hasBeenCounted 
+        // 1. Instantly display cached count to avoid layout jump
+        let cached = null;
+        try {
+            cached = localStorage.getItem(CACHE_KEY);
+            if (cached) {
+                const num = parseInt(cached, 10);
+                if (!isNaN(num) && num > 0) {
+                    footerVisitorText.textContent = formatVisitor(num);
+                }
+            }
+        } catch (e) {}
+
+        // 2. Count once per browser session; subsequent refreshes in same session only fetch the current count
+        let hasCountedSession = false;
+        try {
+            hasCountedSession = sessionStorage.getItem(SESSION_FLAG) === 'true';
+        } catch (e) {}
+
+        const endpoint = hasCountedSession 
             ? `${API_BASE}/get/${COUNTER_KEY}`
             : `${API_BASE}/hit/${COUNTER_KEY}`;
 
@@ -161,18 +181,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearTimeout(timeoutId);
                 if (data && typeof data.value === 'number') {
                     const count = data.value;
-                    if (!hasBeenCounted) {
-                        localStorage.setItem(VISITOR_STORE_KEY, 'true');
-                        localStorage.setItem(VISITOR_NUM_KEY, count.toString());
-                    }
-                    const displayNum = hasBeenCounted && savedVisitorNum ? parseInt(savedVisitorNum, 10) : count;
-                    footerVisitorText.textContent = `You are #${getOrdinal(displayNum)} visitor`;
+                    try {
+                        sessionStorage.setItem(SESSION_FLAG, 'true');
+                        localStorage.setItem(CACHE_KEY, count.toString());
+                    } catch (e) {}
+                    footerVisitorText.textContent = formatVisitor(count);
                 }
             })
             .catch(err => {
                 clearTimeout(timeoutId);
                 console.warn('Visitor counter fetch:', err);
-                if (!savedVisitorNum) {
+                if (!cached) {
                     footerVisitorText.textContent = 'Welcome visitor';
                 }
             });
