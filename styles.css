@@ -2749,3 +2749,36 @@ nav {
     line-height: 1.6;
     color: var(--text-secondary);
 }
+
+/* About as short points: accent marker, key phrase brightened */
+.about-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.about-points li {
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.about-points li::before {
+    content: '';
+    position: absolute;
+    left: 0.15rem;
+    top: 0.62em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--accent-subtle);
+}
+
+.about-hl {
+    color: var(--text-primary);
+    font-weight: 500;
+}
