@@ -2693,3 +2693,34 @@ nav {
 .achievement-text h3 { font-size: 1.1rem; }
 .program-head h3,
 .edu-card h3 { font-size: 1.05rem; }
+
+/* Banner + profile read as one header: the photo is pulled up so its
+   center sits on the banner's bottom edge (no divider between them) */
+.profile-main {
+    align-items: flex-start;
+}
+
+.profile-pic {
+    position: relative;
+    z-index: 2;
+    margin-top: -78px;
+}
+
+.profile-info {
+    padding-top: 0.15rem;
+}
+
+@media (max-width: 768px) {
+    .profile-main {
+        align-items: center;
+    }
+    .profile-section {
+        padding-top: 0;
+    }
+    .profile-pic {
+        margin-top: -55px;
+    }
+    .profile-info {
+        padding-top: 0;
+    }
+}
