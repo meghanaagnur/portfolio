@@ -477,41 +477,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // === Experience Category Filter ===
-    const filterBtns = document.querySelectorAll('.exp-filter-btn');
-    const expGroups = document.querySelectorAll('.experience-group');
-
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const filter = btn.getAttribute('data-filter');
-            expGroups.forEach(group => {
-                const groupType = group.getAttribute('data-group');
-                if (filter === 'all' || filter === groupType) {
-                    group.style.display = 'block';
-                } else {
-                    group.style.display = 'none';
-                }
-            });
-        });
-    });
-
-    // === Experience Show More Toggle ===
-    const expShowMoreBtn = document.getElementById('expShowMoreBtn');
-    const expExtraItems = document.getElementById('expExtraItems');
-    if (expShowMoreBtn && expExtraItems) {
-        expShowMoreBtn.addEventListener('click', () => {
-            const isExpanded = expExtraItems.classList.toggle('expanded');
-            expShowMoreBtn.setAttribute('aria-expanded', isExpanded.toString());
-            const btnSpan = expShowMoreBtn.querySelector('span');
-            if (btnSpan) {
-                btnSpan.textContent = isExpanded ? 'Show less' : 'Show more';
-            }
-        });
-    }
-
     // === Back to Top Smooth Scroll ===
     const backToTopBtn = document.getElementById('backToTop');
     if (backToTopBtn) {
@@ -570,11 +535,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         }
 
-        // HTMLAudio fallback pool
-        const audioPool = [new Audio(SOUND_URL), new Audio(SOUND_URL), new Audio(SOUND_URL)];
+        // HTMLAudio fallback pool (created lazily, only once sound is turned on)
+        let audioPool = null;
         let poolIdx = 0;
 
+        // Sound is off by default; the nav toggle turns it on and the choice is remembered
+        const SOUND_PREF_KEY = 'portfolio_sound';
+        let soundEnabled = false;
+        try {
+            soundEnabled = localStorage.getItem(SOUND_PREF_KEY) === 'on';
+        } catch (e) {}
+
         function playClickSound() {
+            if (!soundEnabled) return;
             const now = performance.now();
             if (now - lastPlayTime < 35) return; // Debounce rapid bursts
             lastPlayTime = now;
@@ -597,6 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Fallback if buffer not yet decoded or WebAudio unavailable
             try {
+                if (!audioPool) audioPool = [new Audio(SOUND_URL), new Audio(SOUND_URL), new Audio(SOUND_URL)];
                 const audio = audioPool[poolIdx];
                 poolIdx = (poolIdx + 1) % audioPool.length;
                 audio.volume = 0.35;
@@ -610,8 +584,33 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Start loading early
-        loadBuffer();
+        const soundToggleBtn = document.getElementById('soundToggle');
+
+        function applySoundState() {
+            if (!soundToggleBtn) return;
+            soundToggleBtn.setAttribute('aria-pressed', String(soundEnabled));
+            soundToggleBtn.setAttribute('aria-label', soundEnabled ? 'Turn click sounds off' : 'Turn click sounds on');
+            soundToggleBtn.title = soundEnabled ? 'Click sounds: on' : 'Click sounds: off';
+        }
+
+        if (soundToggleBtn) {
+            soundToggleBtn.addEventListener('click', () => {
+                soundEnabled = !soundEnabled;
+                try {
+                    localStorage.setItem(SOUND_PREF_KEY, soundEnabled ? 'on' : 'off');
+                } catch (e) {}
+                applySoundState();
+                if (soundEnabled) {
+                    loadBuffer();
+                    lastPlayTime = 0;
+                    playClickSound(); // confirm it's on
+                }
+            });
+        }
+        applySoundState();
+
+        // Only fetch the audio if the visitor has sound turned on
+        if (soundEnabled) loadBuffer();
 
         // Target all interactive elements across the site
         const INTERACTIVE_SELECTOR = 'a, button, input[type="button"], input[type="submit"], [role="button"], .glare-button, .contact-strip-item, .tech-item, .project-card, .theme-toggle, .graph-cell, .timeline-item, .footer-back-to-top, .view-all, .views, .nav-links a';
@@ -639,19 +638,14 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
 
     // =========================================================================
-    // === Contact & Connect Form (Direct Email / Web3Forms / Resend API) =====
+    // === Contact & Connect Form (Resend API via /api/send) ==================
     // =========================================================================
     const contactForm = document.getElementById('contactForm');
     const sendMailBtn = document.getElementById('sendMailBtn');
     const sendMailStatus = document.getElementById('sendMailStatus');
 
     if (contactForm && sendMailBtn) {
-        // Configuration:
-        // For static sites (GitHub Pages), Web3Forms is 100% free with no backend server needed.
-        // Get your free key instantly by entering meghanaagnur@gmail.com at https://web3forms.com
-        // If left empty, it will open the visitor's default email client prefilled with your address.
         const CONTACT_CONFIG = {
-            web3FormsKey: '', // Optional: Web3Forms fallback key
             recipientEmail: 'meghanaagnur@gmail.com',
             resendEndpoint: '/api/send' // Vercel Serverless Function proxy for Resend
         };
@@ -686,68 +680,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 sendMailStatus.className = 'form-status';
             }
 
-            const senderDisplayName = name ? `${name} <${email}>` : email;
-
             try {
-                // 1. Send via Vercel Serverless function (/api/send) connected to Resend:
-                if (CONTACT_CONFIG.resendEndpoint) {
-                    const res = await fetch(CONTACT_CONFIG.resendEndpoint, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ name, email, message })
-                    });
-                    const resData = await res.json().catch(() => ({}));
-                    if (!res.ok) {
-                        throw new Error(resData.error || `Server error ${res.status}`);
-                    }
-                    showSuccess();
-                    return;
+                const res = await fetch(CONTACT_CONFIG.resendEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, message })
+                });
+                const resData = await res.json().catch(() => ({}));
+                if (!res.ok) {
+                    throw new Error(resData.error || `Server error ${res.status}`);
                 }
-
-                // 2. If Web3Forms access key is configured:
-                if (CONTACT_CONFIG.web3FormsKey) {
-                    const res = await fetch('https://api.web3forms.com/submit', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            access_key: CONTACT_CONFIG.web3FormsKey,
-                            name: name || 'Portfolio Visitor',
-                            email: email,
-                            message: message,
-                            subject: `New Portfolio Message from ${name || email}`,
-                            from_name: name || 'Portfolio Visitor'
-                        })
-                    });
-                    const data = await res.json();
-                    if (data.success) {
-                        showSuccess();
-                        return;
-                    } else {
-                        throw new Error(data.message || 'Submission rejected');
-                    }
-                }
-
-                // 3. Default Fallback: Open email client with prefilled mailto
-                const mailtoUrl = `mailto:${CONTACT_CONFIG.recipientEmail}?subject=${encodeURIComponent('Portfolio Message from ' + (name || email))}&body=${encodeURIComponent(message + '\n\n---\nSent by: ' + senderDisplayName)}`;
-                window.location.href = mailtoUrl;
-
-                if (sendMailStatus) {
-                    sendMailStatus.textContent = 'Opening your email client to send to Meghana!';
-                    sendMailStatus.className = 'form-status success';
-                }
-                contactForm.reset();
+                showSuccess();
             } catch (err) {
-                console.warn('Form submission issue, opening mail client as fallback:', err);
-                const mailtoUrl = `mailto:${CONTACT_CONFIG.recipientEmail}?subject=${encodeURIComponent('Portfolio Message from ' + (name || email))}&body=${encodeURIComponent(message + '\n\n---\nSent by: ' + senderDisplayName)}`;
-                window.location.href = mailtoUrl;
-
-                if (sendMailStatus) {
-                    sendMailStatus.textContent = 'Opening email client to send to meghanaagnur@gmail.com!';
-                    sendMailStatus.className = 'form-status';
-                }
+                // Don't hijack the visitor into their mail app: keep what they typed
+                // in the form so they can retry, and offer the address as a link.
+                console.warn('Contact form submission failed:', err);
+                showError();
             } finally {
                 sendMailBtn.disabled = false;
                 if (btnSpan) btnSpan.textContent = originalBtnText;
@@ -759,6 +707,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     sendMailStatus.className = 'form-status success';
                 }
                 contactForm.reset();
+            }
+
+            function showError() {
+                if (!sendMailStatus) return;
+                sendMailStatus.className = 'form-status error';
+                sendMailStatus.textContent = 'Couldn\'t send that right now. Your message is still here, so try again, or email me at ';
+                const mailLink = document.createElement('a');
+                mailLink.href = `mailto:${CONTACT_CONFIG.recipientEmail}`;
+                mailLink.textContent = CONTACT_CONFIG.recipientEmail;
+                sendMailStatus.appendChild(mailLink);
+                sendMailStatus.appendChild(document.createTextNode('.'));
             }
         });
     }

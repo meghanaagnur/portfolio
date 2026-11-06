@@ -186,6 +186,22 @@
       color: #374151;
     }
 
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.18rem;
+    }
+
+    .item-link {
+      font-size: 8.2pt;
+      font-weight: 600;
+      color: #1f2937;
+      text-decoration: underline;
+      white-space: nowrap;
+    }
+
     @media print {
       body {
         background: transparent;
@@ -202,32 +218,36 @@
     <!-- Header -->
     <header>
       <h1>Meghana Agnur</h1>
-      <div class="subtitle">Frontend Developer &bull; Software Builder &bull; Applied AI / ML</div>
+      <div class="subtitle">Frontend Developer &bull; Learning AI / ML</div>
       <div class="contact-links">
         <span>Pune, India</span>
         <span class="sep">&bull;</span>
         <a href="mailto:meghanaagnur@gmail.com">meghanaagnur@gmail.com</a>
         <span class="sep">&bull;</span>
-        <a href="https://linkedin.com/in/meghana-agnur-84a294385" target="_blank">linkedin.com/in/meghana-agnur</a>
+        <a href="https://linkedin.com/in/meghana-agnur-84a294385" target="_blank">LinkedIn</a>
         <span class="sep">&bull;</span>
         <a href="https://github.com/meghanaagnur" target="_blank">github.com/meghanaagnur</a>
         <span class="sep">&bull;</span>
-        <a href="https://x.com/meghanaagnur" target="_blank">x.com/meghanaagnur</a>
+        <a href="https://leetcode.com/u/meghanaagnur/" target="_blank">leetcode.com/u/meghanaagnur</a>
+        <span class="sep">&bull;</span>
+        <a href="https://portfolio-five-chi-m3dfkkzj44.vercel.app" target="_blank">Portfolio</a>
       </div>
     </header>
 
     <!-- Education -->
     <section>
       <div class="section-title">Education</div>
-      <div class="item">
-        <div class="item-header">
-          <span class="item-title">AISSMS Institute of Information Technology (AISSMS IOIT)</span>
-          <span class="item-loc">Pune, India</span>
-        </div>
-        <div class="item-sub">
-          <span>Bachelor of Technology (B.Tech) in Information Technology &bull; <strong>CGPA: 9.35 / 10.0</strong> (First Year)</span>
-          <span class="item-date">2024 &ndash; 2028</span>
-        </div>
+      <div class="item edu-row">
+        <span class="item-title">B.Tech, Information Technology <span class="role">&bull; AISSMS Institute of Information Technology (AISSMS IOIT), Pune</span></span>
+        <span class="item-date">CGPA 9.35 (First Year) &nbsp;|&nbsp; 2025 &ndash; 2029</span>
+      </div>
+      <div class="item edu-row">
+        <span class="item-title">Class XII (HSC) <span class="role">&bull; Dr. Kalmadi Shamarao High School</span></span>
+        <span class="item-date">90.4% &nbsp;|&nbsp; 2025</span>
+      </div>
+      <div class="item edu-row">
+        <span class="item-title">Class X (CBSE) <span class="role">&bull; MIT VGS</span></span>
+        <span class="item-date">94.4% &nbsp;|&nbsp; 2023</span>
       </div>
     </section>
 
@@ -241,122 +261,71 @@
         </tr>
         <tr>
           <td class="cat">Frontend &amp; Mobile:</td>
-          <td class="vals">React.js, Next.js, Flutter, Tailwind CSS, Radix UI, Playwright</td>
+          <td class="vals">React.js, Next.js, Flutter, Tailwind CSS</td>
         </tr>
         <tr>
-          <td class="cat">Backend &amp; Storage:</td>
-          <td class="vals">Node.js, Express.js, Firebase, ChromaDB (Vector DB), REST APIs, web3.py</td>
+          <td class="cat">Backend &amp; Data:</td>
+          <td class="vals">Firebase, REST APIs, ChromaDB, Ollama</td>
         </tr>
         <tr>
-          <td class="cat">AI &amp; Developer Tools:</td>
-          <td class="vals">Ollama / Mistral 7B, Git, GitHub, Vercel</td>
+          <td class="cat">Tools:</td>
+          <td class="vals">Git, GitHub, Vercel</td>
         </tr>
       </table>
     </section>
 
     <!-- Projects -->
     <section>
-      <div class="section-title">Featured Projects</div>
+      <div class="section-title">Projects</div>
 
       <!-- Project 1 -->
       <div class="item">
         <div class="item-header">
-          <span class="item-title">VaariSarthi: Pilgrim Group Tracking &amp; Safety Platform</span>
-          <span class="item-date">Top 100 Finalist</span>
-        </div>
-        <div class="item-sub">
-          <span class="tech-stack">Flutter, Firebase, Google Maps SDK, Twilio SMS API</span>
+          <span class="item-title">VaariSarthi: Pilgrim Group Safety App <span class="tech-stack">| Flutter, Firebase, Google Maps SDK, Twilio</span></span>
+          <a class="item-link" href="https://github.com/meghanaagnur/VaariSarthi" target="_blank">GitHub</a>
         </div>
         <ul>
-          <li>Engineered a safety tracking app for 1M+ pilgrims across the 250 to 300km Pandharpur Wari pilgrimage.</li>
-          <li>Implemented real time GPS tracking with drift alerts, SOS emergency SMS dispatching, and bilingual (Marathi/English) UI.</li>
-          <li>Integrated AI assisted lost and found matching to reconnect separated pilgrims with their groups.</li>
+          <li>Hackathon prototype for Warkaris on the 250 to 300km Pandharpur Wari, where pilgrims get separated from their group with no way to track individuals.</li>
+          <li>Team design covers group tracking with drift alerts, lost and found matching, an emergency SOS flow, and a bilingual Marathi/English UI.</li>
+          <li><strong>My role:</strong> built the Flutter frontend. Finalist (Top 100 of 450+ teams) at Vaarithon, MMCOE.</li>
         </ul>
       </div>
 
       <!-- Project 2 -->
       <div class="item">
         <div class="item-header">
-          <span class="item-title">Codence: AI Architectural Decision Records (ADR) at PR Review</span>
-          <span class="item-date">Hackathon Finalist</span>
-        </div>
-        <div class="item-sub">
-          <span class="tech-stack">Next.js, Tailwind CSS, Node.js, ChromaDB, Ollama / Mistral 7B</span>
+          <span class="item-title">Codence: Decision Records at PR Time <span class="tech-stack">| Next.js, Tailwind CSS, Node.js, ChromaDB, Ollama</span></span>
+          <a class="item-link" href="https://github.com/meghanaagnur/Codence" target="_blank">GitHub</a>
         </div>
         <ul>
-          <li>Built an automated knowledge-capture system conducting interactive AI voice interviews with developers during pull requests.</li>
-          <li>Vectorized discussions into ChromaDB via local Mistral 7B models, enabling cited conversational search on codebase history.</li>
+          <li>Team project that captures the reasoning behind code changes through short AI voice interviews at pull request time, stored as searchable decision records.</li>
+          <li><strong>My role:</strong> built the Next.js frontend and worked with ChromaDB and Ollama for the search. Finalist at Synapse 1.0, SIT Pune (top 68 teams).</li>
         </ul>
       </div>
 
       <!-- Project 3 -->
       <div class="item">
         <div class="item-header">
-          <span class="item-title">VibeCheck: Deterministic Code Output Auditing Engine</span>
-          <span class="item-date">Working Prototype</span>
-        </div>
-        <div class="item-sub">
-          <span class="tech-stack">Next.js, Node.js, Playwright, Python</span>
+          <span class="item-title">VibeCheck: Prompt vs. Render Checker <span class="tech-stack">| Next.js, Node.js, Playwright, Python</span></span>
+          <a class="item-link" href="https://github.com/meghanaagnur/Vibecheck" target="_blank">GitHub</a>
         </div>
         <ul>
-          <li>Created a deterministic evaluation pipeline detecting gaps between prompt specifications and rendered front-end code.</li>
-          <li>Replaced circular LLM-as-a-judge patterns with deterministic DOM and AST diffing via headless Playwright automation.</li>
-        </ul>
-      </div>
-
-    </section>
-
-    <!-- Experience, Open Source & Fellowships -->
-    <section>
-      <div class="section-title">Experience &amp; Open Source Fellowships</div>
-
-      <!-- Item 1: OSCI & GitMastery -->
-      <div class="item">
-        <div class="item-header">
-          <span class="item-title">Open Source Contributor <span class="role">&bull; Open Source Community India (OSCI) &amp; SWOC</span></span>
-          <span class="item-date">Sep 2026 &ndash; Present</span>
-        </div>
-        <ul>
-          <li>Contributed to <strong>GitMastery</strong>: built print-friendly cheat sheet export, dual-render DOM workarounds for Radix UI, and German/English i18n support.</li>
-          <li>Active contributor in <strong>Social Winter of Code (SWOC)</strong>: triaged issues, submitted PRs, and collaborated on open Git workflows.</li>
-        </ul>
-      </div>
-
-      <!-- Item 2: Stanford Code in Place -->
-      <div class="item">
-        <div class="item-header">
-          <span class="item-title">Selected Student &amp; Mentee <span class="role">&bull; Code in Place, Stanford University</span></span>
-          <span class="item-date">2026 &ndash; Ongoing</span>
-        </div>
-        <ul>
-          <li>Selected into Stanford University's global CS initiative; completed advanced Python algorithmic thinking and computational problem-solving under Stanford instructors.</li>
-        </ul>
-      </div>
-
-      <!-- Item 3: Aspire Leaders & DoraDAO -->
-      <div class="item">
-        <div class="item-header">
-          <span class="item-title">Global Fellow &amp; Aspire Leader <span class="role">&bull; Aspire Institute, DoraDAO &amp; Codess.Cafe</span></span>
-          <span class="item-date">2026</span>
-        </div>
-        <ul>
-          <li><strong>Aspire Leaders Program:</strong> Selected for global leadership initiative founded by Harvard Business School faculty; engaged in cross-cultural problem-solving.</li>
-          <li><strong>DoraDAO (Girls Who Yap):</strong> Completed intensive fellowship for women building in AI and Web3, delivering weekly build challenges and rapid prototypes.</li>
-          <li><strong>Codess.Cafe:</strong> Active mentee engaging in technical interview prep, peer mentorship, and collaborative coding sessions.</li>
+          <li>Prototype that catches gaps between an AI coding prompt and what actually renders, using a deterministic diff engine instead of an AI judge.</li>
+          <li><strong>My role:</strong> led the project and built the frontend; a teammate built the Playwright diff engine.</li>
         </ul>
       </div>
     </section>
 
-    <!-- Leadership & Extracurriculars -->
+    <!-- Experience -->
     <section>
-      <div class="section-title">Leadership &amp; Campus Involvement</div>
+      <div class="section-title">Experience</div>
       <div class="item">
         <div class="item-header">
-          <span class="item-title">Joint Secretary (Anchoring Domain) <span class="role">&bull; Training &amp; Placement (T&P) Cell, AISSMS IOIT</span></span>
+          <span class="item-title">Joint Secretary (Anchoring Domain) <span class="role">&bull; Training &amp; Placement (T&amp;P) Cell, AISSMS IOIT</span></span>
           <span class="item-date">Ongoing</span>
         </div>
         <ul>
-          <li>Coordinated anchoring and communication for campus placement drives and college-wide hackathons (Tecathon).</li>
+          <li>Coordinate anchoring and communication for placement drives; volunteered for Tecathon, the college hackathon.</li>
         </ul>
       </div>
       <div class="item">
@@ -365,9 +334,33 @@
           <span class="item-date">Ongoing</span>
         </div>
         <ul>
-          <li>Collaborated on hands-on cloud computing workshops, DevOps pipelines, and AI/ML project architecture.</li>
+          <li>Part of the student community for AWS Cloud, DevOps and AI/ML, learning through hands-on workshops and project-based work.</li>
         </ul>
       </div>
+    </section>
+
+    <!-- Open Source -->
+    <section>
+      <div class="section-title">Open Source</div>
+      <div class="item">
+        <div class="item-header">
+          <span class="item-title">Contributor <span class="role">&bull; Open Source Community India (OSCI)</span></span>
+          <span class="item-date">Sep 2026 &ndash; Present</span>
+        </div>
+        <ul>
+          <li><strong>GitMastery (merged PR):</strong> added a print-friendly cheat sheet export, working around Radix UI's print limitations with a dual-render DOM approach, plus English/German i18n support. <a class="item-link" href="https://github.com/MikaStiebitz/Git-Mastery/pull/87" target="_blank">PR #87</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Achievements -->
+    <section>
+      <div class="section-title">Achievements</div>
+      <ul>
+        <li><strong>Finalist, Vaarithon by MMCOE:</strong> Top 100 of 450+ teams with VaariSarthi.</li>
+        <li><strong>Finalist, Synapse 1.0 by Symbiosis Institute of Technology, Pune:</strong> one of 68 teams shortlisted from 1,250+ registrants for the 8-hour AI hackathon finale, with Codence.</li>
+        <li><strong>Code in Place, Stanford University (2026, ongoing):</strong> selected as a student in Stanford's global introductory programming course.</li>
+      </ul>
     </section>
   </div>
 

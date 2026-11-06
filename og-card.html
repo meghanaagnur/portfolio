@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- Source for og-image.png (1200x630 link preview). Regenerate with:
+     msedge --headless=new --hide-scrollbars --window-size=1200,630 --screenshot=og-image.png og-card.html -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: #000; }
+  .card {
+    position: relative; width: 1200px; height: 630px; box-sizing: border-box;
+    display: flex; align-items: center; gap: 56px; padding: 0 90px;
+    font-family: 'Inter', sans-serif; color: #fff;
+  }
+  .bg { position: absolute; inset: 0; background: url('banner/pond-night.webp') center / cover; opacity: 0.45; }
+  .shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.7) 55%, rgba(0,0,0,0.35) 100%); }
+  .photo {
+    position: relative; width: 230px; height: 230px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
+    box-shadow: 0 0 0 5px #000, 0 0 0 8px #38383e, 0 0 50px rgba(157,133,252,0.35);
+  }
+  .photo img { width: 100%; height: 100%; object-fit: cover; }
+  .text { position: relative; }
+  h1 { font-family: 'Playfair Display', serif; font-weight: 500; font-size: 76px; margin: 0; line-height: 1.05; }
+  h2 { font-size: 30px; font-weight: 600; color: #d6d6e2; margin: 14px 0 0; }
+  p { font-size: 22px; color: #a4a4b4; margin: 10px 0 0; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 12px; margin-top: 26px;
+    padding: 9px 20px; border-radius: 999px; font-size: 21px; font-weight: 500;
+    background: rgba(74,222,128,0.1); border: 1.5px solid rgba(74,222,128,0.45);
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 5px rgba(74,222,128,0.2); }
+  .mark { position: absolute; top: 34px; right: 50px; font-family: 'Playfair Display', serif; font-size: 40px; color: #fff; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="bg"></div>
+    <div class="shade"></div>
+    <div class="mark">M.</div>
+    <div class="photo"><img src="assets/meghana.webp" alt=""></div>
+    <div class="text">
+      <h1>Meghana Agnur</h1>
+      <h2>Frontend Developer · Learning AI/ML</h2>
+      <p>IT student, AISSMS IOIT Pune · Hackathon finalist</p>
+      <span class="badge"><span class="dot"></span>Open to internships</span>
+    </div>
+  </div>
+</body>
+</html>

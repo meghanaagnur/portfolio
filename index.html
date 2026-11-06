@@ -10,11 +10,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meghana | Portfolio</title>
+    <meta name="description" content="Meghana Agnur, a second-year IT student in Pune building with React, Next.js and Flutter while learning AI/ML. Open to internships.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://portfolio-five-chi-m3dfkkzj44.vercel.app/">
+    <meta property="og:title" content="Meghana Agnur · Frontend Developer, learning AI/ML">
+    <meta property="og:description" content="Second-year IT student in Pune. Hackathon finalist, open source contributor, open to internships.">
+    <meta property="og:image" content="https://portfolio-five-chi-m3dfkkzj44.vercel.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/svg+xml" href="favicon.svg?v=m3">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=m3">
     <link rel="shortcut icon" href="favicon.ico?v=m3">
     <link rel="apple-touch-icon" href="favicon.png?v=m3">
-    <link rel="stylesheet" href="styles.css?v=32">
+    <link rel="stylesheet" href="styles.css?v=35">
     <link rel="stylesheet" href="components/link-preview/link-preview.css">
     <!-- Pixel Cat Companion (Temporarily disabled - ready to restore later)
     <link rel="stylesheet" href="components/pixel-cat/pixel-cat.css">
@@ -36,6 +45,10 @@
                     <a href="#contact">Contact</a>
                     <div class="nav-indicator"></div>
                 </div>
+                <button id="soundToggle" class="theme-toggle sound-toggle" aria-label="Turn click sounds on" aria-pressed="false" title="Click sounds: off">
+                    <svg class="sound-on-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+                    <svg class="sound-off-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+                </button>
                 <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
                     <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -124,14 +137,15 @@
                 </div>
                 <div class="profile-info">
                     <h1>Meghana Agnur</h1>
-                    <h2>Developer & Builder</h2>
+                    <h2>Frontend Developer · Learning AI/ML</h2>
                     <p>Pune, Maharashtra, India</p>
+                    <span class="open-to-work"><span class="open-to-work-dot" aria-hidden="true"></span>Open to internships</span>
                     <div class="profile-actions">
                         <a href="#projects" class="glare-button" id="btnViewWork">
                             <span>View my work</span>
                             <svg class="btn-icon icon-arrow-right" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                         </a>
-                        <a href="resume.pdf?v=2" target="_blank" rel="noopener noreferrer" class="glare-button" id="btnViewResume">
+                        <a href="resume.pdf?v=7" target="_blank" rel="noopener noreferrer" class="glare-button" id="btnViewResume">
                             <span>View my resume</span>
                             <svg class="btn-icon icon-external" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                         </a>
@@ -146,6 +160,9 @@
                 </a>
                 <a href="https://linkedin.com/in/meghana-agnur-84a294385" target="_blank" rel="noopener noreferrer" class="profile-social-link" title="LinkedIn" aria-label="LinkedIn">
                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+                <a href="https://leetcode.com/u/meghanaagnur/" target="_blank" rel="noopener noreferrer" class="profile-social-link" title="LeetCode" aria-label="LeetCode">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>
                 </a>
                 <a href="https://x.com/meghanaagnur" target="_blank" rel="noopener noreferrer" class="profile-social-link" title="Twitter / X" aria-label="Twitter / X">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
@@ -165,8 +182,8 @@
             <h2 class="section-title">About</h2>
             <ul class="about-list">
                 <li><u><strong>Second-year IT student at AISSMS IOIT, Pune</strong></u>, who learns by building first and understanding as I go. I've taken part in hackathons, and two of my projects, VaariSarthi and Codence, were finalists.</li>
-                <li>I like building things that solve real, specific problems, like keeping pilgrims on the Wari from getting lost, or preserving why code was written the way it was. My usual tools are <u><strong>React, Flutter, and Next.js</strong></u>.</li>
-                <li>Outside class, I'm a <u><strong>Stanford Code in Place student</strong></u>, an Aspire Leaders cohort member, an open source contributor with OSCI and SWoC, and a DoraDAO fellow. I'm currently looking for internships.</li>
+                <li>I like building things that solve real, specific problems, like keeping pilgrims on the Wari from getting lost, or preserving why code was written the way it was. I mostly build with <u><strong>React, Next.js, and Flutter</strong></u>, and I'm learning AI/ML from the fundamentals up.</li>
+                <li>Outside class, I'm a <u><strong>Stanford Code in Place student</strong></u>, an Aspire Leaders cohort member, an open source contributor with OSCI, and a DoraDAO fellow. I'm currently looking for internships.</li>
             </ul>
         </section>
     </div>
@@ -188,12 +205,13 @@
                             <span class="project-index">01 / FEATURED</span>
                             <span class="live-status live-status-gold">
                                 <span class="dot" style="background-color: #ffd700;"></span>
-                                FINALIST &middot; TOP 100
+                                FINALIST &middot; TOP 100 OF 450+
                             </span>
                         </div>
                         <h3 class="project-title-large">VaariSarthi</h3>
                         <p class="project-subtitle">A safety net for the Wari, so no pilgrim walks lost.</p>
-                        <p class="project-desc">Built for Warkaris on the 250 to 300km Pandharpur Wari pilgrimage, where people can get separated from their group with no individual level tracking. Adds GPS group tracking with drift alerts, AI matched lost and found, emergency SOS, and a bilingual Marathi/English interface.</p>
+                        <p class="project-desc">A hackathon prototype for Warkaris on the 250 to 300km Pandharpur Wari, where pilgrims get separated from their group with no way to track individuals. Our team designed it around group tracking with drift alerts, lost and found matching, an emergency SOS flow, and a bilingual Marathi/English interface.</p>
+                        <p class="project-role"><span>My role</span> Built the Flutter frontend. Finalist at Vaarithon by MMCOE.</p>
                         
                         <div class="project-meta-bottom">
                             <div class="tags">
@@ -244,12 +262,13 @@
                             <span class="project-index">02</span>
                             <span class="live-status live-status-gold">
                                 <span class="dot" style="background-color: #ffd700;"></span>
-                                FINALIST &middot; HACKATHON
+                                FINALIST &middot; TOP 68 TEAMS
                             </span>
                         </div>
                         <h3 class="project-title-standard">Codence</h3>
                         <p class="project-subtitle">Every PR has a reason. Codence makes sure it's not lost.</p>
-                        <p class="project-desc">Captures the reasoning behind code decisions at PR time through short AI generated voice interviews, storing them as searchable, cited decision records so teams can ask &ldquo;why was this built this way?&rdquo; and get a sourced answer.</p>
+                        <p class="project-desc">A team project that captures the reasoning behind code decisions at PR time through short AI voice interviews, and stores the answers as searchable decision records, so a team can ask &ldquo;why was this built this way?&rdquo; and get a sourced answer.</p>
+                        <p class="project-role"><span>My role</span> Built the Next.js frontend and worked with ChromaDB and Ollama for the search. Finalist at Synapse 1.0, SIT Pune.</p>
                         
                         <div class="project-meta-bottom">
                             <div class="tags">
@@ -288,12 +307,13 @@
                             <span class="project-index">03</span>
                             <span class="live-status">
                                 <span class="dot" style="background-color: var(--accent-color);"></span>
-                                AI DIFF ENGINE
+                                PROTOTYPE
                             </span>
                         </div>
                         <h3 class="project-title-standard">VibeCheck</h3>
                         <p class="project-subtitle">AI writes the code. VibeCheck checks if it actually listened.</p>
-                        <p class="project-desc">Catches gaps between an AI coding prompt and what actually renders, using a deterministic diff engine instead of another AI judge, avoiding circularity in the check itself.</p>
+                        <p class="project-desc">Catches gaps between an AI coding prompt and what actually renders, using a deterministic diff engine instead of asking another AI to judge, so the check doesn't rely on the same kind of model it's checking.</p>
+                        <p class="project-role"><span>My role</span> Led the project and built the frontend; a teammate built the Playwright diff engine. Not deployed yet.</p>
                         
                         <div class="project-meta-bottom">
                             <div class="tags">
@@ -317,199 +337,148 @@
     <div class="divider"></div>
 
     <div class="layout-container" style="padding-top: 0; padding-bottom: 0;">
+        <!-- Achievements Section -->
+        <section class="content-section" id="achievements">
+            <h2 class="section-title">Achievements</h2>
+            <ul class="achievement-list">
+                <li class="achievement-item">
+                    <span class="achievement-icon" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+                    </span>
+                    <div class="achievement-text">
+                        <h3>Finalist, Vaarithon by MMCOE</h3>
+                        <p>Top 100 of 450+ teams with VaariSarthi, a safety app for pilgrims on the Pandharpur Wari.</p>
+                    </div>
+                </li>
+                <li class="achievement-item">
+                    <span class="achievement-icon" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+                    </span>
+                    <div class="achievement-text">
+                        <h3>Finalist, Synapse 1.0 by Symbiosis Institute of Technology, Pune</h3>
+                        <p>One of 68 teams shortlisted from 1,250+ registrants for the 8-hour AI hackathon finale, with Codence, a tool that records why code decisions were made at PR time.</p>
+                    </div>
+                </li>
+                <li class="achievement-item">
+                    <span class="achievement-icon" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                    </span>
+                    <div class="achievement-text">
+                        <h3>Selected for Code in Place, Stanford University</h3>
+                        <p>Selected as a student in Stanford's global introductory programming course, currently learning Python with Stanford instructors and section leaders.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="layout-container" style="padding-top: 0; padding-bottom: 0;">
         <!-- Experience Section -->
         <section class="content-section" id="experience">
-            <div class="section-header">
-                <h2 class="section-title" style="margin-bottom: 0;">Experience</h2>
-                <div class="exp-filters" role="tablist" aria-label="Filter experience by category">
-                    <button class="exp-filter-btn active" data-filter="all">All</button>
-                    <button class="exp-filter-btn" data-filter="opensource">Open Source & Mentorship</button>
-                    <button class="exp-filter-btn" data-filter="clubs">Club Activities</button>
+            <h2 class="section-title">Experience</h2>
+            <div class="timeline">
+                <!-- Experience Item: T&P Cell -->
+                <div class="timeline-item">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-title">
+                                <h3>Joint Secretary, Anchoring Domain</h3>
+                                <span class="separator">·</span>
+                                <span class="company">T&amp;P Cell, AISSMS IOIT</span>
+                            </div>
+                            <span class="timeline-date">Ongoing</span>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Coordinate anchoring and communication for placement-related events within the Training &amp; Placement Cell.</p>
+                            <ul class="timeline-bullets">
+                                <li>Anchored and volunteered for multiple placement drives</li>
+                                <li>Volunteered for Tecathon at AISSMS IOIT</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Item: AWS SBG -->
+                <div class="timeline-item">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-title">
+                                <h3>Project Team Member</h3>
+                                <span class="separator">·</span>
+                                <span class="company">AWS SBG, AISSMS IOIT</span>
+                            </div>
+                            <span class="timeline-date">Ongoing</span>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Part of the student-led community focused on AWS Cloud, DevOps and AI/ML, learning through hands-on workshops and project-based work.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
+    </div>
 
-            <!-- Group 1: Open Source & Mentorship / Global Programs -->
-            <div class="experience-group" data-group="opensource">
-                <div class="group-header">
-                    <span class="group-title">Open Source, Fellowships & Mentorship</span>
-                    <div class="group-line"></div>
-                </div>
-                <div class="timeline">
-                    <!-- Experience Item: Codess.Cafe -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot active"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-header">
-                                <div class="timeline-title">
-                                    <h3>Community Member & Mentee</h3>
-                                    <span class="separator">·</span>
-                                    <span class="company">Codess.Cafe</span>
-                                    <span class="timeline-badge badge-mentorship">Mentorship</span>
-                                </div>
-                                <span class="timeline-date">Ongoing</span>
+    <div class="divider"></div>
+
+    <div class="layout-container" style="padding-top: 0; padding-bottom: 0;">
+        <!-- Open Source Section -->
+        <section class="content-section" id="opensource">
+            <h2 class="section-title">Open Source</h2>
+            <div class="timeline">
+                <!-- Open Source Item: OSCI / GitMastery -->
+                <div class="timeline-item">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-title">
+                                <h3>Contributor</h3>
+                                <span class="separator">·</span>
+                                <span class="company">OSCI (Open Source Community India)</span>
                             </div>
-                            <div class="timeline-body">
-                                <p>Active member of the Codess.Cafe community for women in tech, engaging in technical interview prep, peer mentorship, and collaborative engineering development.</p>
-                            </div>
+                            <span class="timeline-date">Sept 2026 — Present</span>
+                        </div>
+                        <div class="timeline-body">
+                            <ul class="timeline-bullets">
+                                <li><strong>GitMastery (merged PR):</strong> added a print-friendly cheat sheet export, working around Radix UI's print limitations with a dual-render DOM approach, plus English/German i18n support. <a class="inline-link" href="https://github.com/MikaStiebitz/Git-Mastery/pull/87" target="_blank" rel="noopener noreferrer">View the PR ↗</a></li>
+                            </ul>
                         </div>
                     </div>
-
-                    <!-- Experience Item: Code in Place -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot active"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-header">
-                                <div class="timeline-title">
-                                    <h3>Student & Mentee</h3>
-                                    <span class="separator">·</span>
-                                    <span class="company">Code in Place · Stanford University</span>
-                                    <span class="timeline-badge badge-mentorship">Mentee / Global Program</span>
-                                </div>
-                                <span class="timeline-date">Ongoing</span>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Selected for Stanford University's global computer science initiative, learning foundational Python programming, algorithmic problem-solving, and computational thinking under Stanford faculty and section leaders.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Experience Item: Aspire Leaders Program -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot active"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-header">
-                                <div class="timeline-title">
-                                    <h3>Cohort Participant &amp; Aspire Leader</h3>
-                                    <span class="separator">·</span>
-                                    <span class="company">Aspire Leaders Program · Aspire Institute</span>
-                                    <span class="timeline-badge badge-mentorship">Global Leadership</span>
-                                </div>
-                                <span class="timeline-date">Ongoing</span>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Selected for the prestigious global leadership initiative founded by Harvard Business School professors, engaging in executive leadership masterclasses, strengths assessment, and collaborative problem-solving alongside peers worldwide.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Collapsible extra experience entries -->
-                    <div class="exp-extra-items" id="expExtraItems">
-                    <!-- Experience Item: OSCI -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot active"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-header">
-                                <div class="timeline-title">
-                                    <h3>Open Source Contributor</h3>
-                                    <span class="separator">·</span>
-                                    <span class="company">OSCI</span>
-                                    <span class="timeline-badge badge-opensource">Open Source</span>
-                                </div>
-                                <span class="timeline-date">Sept 2026 — Present</span>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Contributing as part of OSCI, one of India's largest open-source initiatives connecting developers and contributors with real-world projects, mentorship, and the broader open-source ecosystem.</p>
-                                <ul class="timeline-bullets">
-                                    <li><strong>Featured contribution: GitMastery</strong> — print-friendly cheat sheet export with a dual-render DOM workaround for Radix UI, plus English/German i18n support.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Experience Item: SWOC -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot active"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-header">
-                                <div class="timeline-title">
-                                    <h3>Open Source Contributor</h3>
-                                    <span class="separator">·</span>
-                                    <span class="company">Social Winter of Code (SWOC)</span>
-                                    <span class="timeline-badge badge-opensource">Open Source</span>
-                                </div>
-                                <span class="timeline-date">Ongoing</span>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Contributing to open-source software initiatives, collaborating across Git workflows, resolving issues, and shipping improvements to community-driven repositories.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Experience Item: DoraDAO / GWY -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-header">
-                                <div class="timeline-title">
-                                    <h3>Fellow</h3>
-                                    <span class="separator">·</span>
-                                    <span class="company">DoraDAO: Girls Who Yap</span>
-                                    <span class="timeline-badge badge-fellowship">Fellowship</span>
-                                </div>
-                                <span class="timeline-date">Completed — Aug 2026</span>
-                            </div>
-                            <div class="timeline-body">
-                                <p>A global fellowship for women building in AI/Web3, run by DoraDAO — combining guided sessions, weekly build challenges, and hackathon-style sprints to go from AI-curious to actually shipping products.</p>
-                            </div>
-                        </div>
-                    </div>
-                    </div><!-- /exp-extra-items -->
-                    <!-- Show more / Show less toggle -->
-                    <button class="exp-show-more-btn" id="expShowMoreBtn" aria-expanded="false">
-                        <span>Show more</span>
-                        <svg class="exp-show-more-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                    </button>
                 </div>
             </div>
+        </section>
+    </div>
 
-            <!-- Group 2: Campus & Club Activities -->
-            <div class="experience-group" data-group="clubs">
-                <div class="group-header">
-                    <span class="group-title">Campus Leadership & Club Activities</span>
-                    <div class="group-line"></div>
+    <div class="divider"></div>
+
+    <div class="layout-container" style="padding-top: 0; padding-bottom: 0;">
+        <!-- Programs & Communities Section -->
+        <section class="content-section" id="programs">
+            <h2 class="section-title">Programs &amp; Communities</h2>
+            <div class="program-grid">
+                <div class="program-item">
+                    <div class="program-head">
+                        <h3>Aspire Leaders Program</h3>
+                        <span class="timeline-date">Ongoing</span>
+                    </div>
+                    <p>Global leadership program by the Aspire Institute, founded by Harvard Business School faculty. Leadership sessions and collaborative problem-solving with peers worldwide.</p>
                 </div>
-                <div class="timeline">
-                    <!-- Experience Item: T&P Cell -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot active"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-header">
-                                <div class="timeline-title">
-                                    <h3>Joint Secretary, Anchoring Domain</h3>
-                                    <span class="separator">·</span>
-                                    <span class="company">T&P Cell, AISSMS IOIT</span>
-                                    <span class="timeline-badge badge-club">Club Activity</span>
-                                </div>
-                                <span class="timeline-date">Ongoing</span>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Coordinate anchoring and communication for placement-related events within the T&P Cell.</p>
-                                <ul class="timeline-bullets">
-                                    <li>Volunteered and anchored for multiple placement drives</li>
-                                    <li>Volunteered for Tecathon at AISSMS IOIT</li>
-                                </ul>
-                            </div>
-                        </div>
+                <div class="program-item">
+                    <div class="program-head">
+                        <h3>DoraDAO: Girls Who Yap</h3>
+                        <span class="timeline-date">Completed · Aug 2026</span>
                     </div>
-
-                    <!-- Experience Item: AWS SBG -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot active"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-header">
-                                <div class="timeline-title">
-                                    <h3>Project Team Member</h3>
-                                    <span class="separator">·</span>
-                                    <span class="company">AWS SBG, AISSMS IOIT</span>
-                                    <span class="timeline-badge badge-club">Club Activity</span>
-                                </div>
-                                <span class="timeline-date">Ongoing</span>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Part of the student-led community focused on AWS Cloud, DevOps, and AI/ML, through hands-on workshops and project-based learning.</p>
-                            </div>
-                        </div>
+                    <p>Fellowship for women building in AI and Web3, with guided sessions, weekly build challenges and hackathon-style sprints.</p>
+                </div>
+                <div class="program-item">
+                    <div class="program-head">
+                        <h3>Codess.Cafe</h3>
+                        <span class="timeline-date">Ongoing</span>
                     </div>
+                    <p>Community for women in tech: interview prep, peer mentorship and collaborative coding sessions.</p>
                 </div>
             </div>
         </section>
@@ -522,8 +491,7 @@
         <section class="content-section" id="education">
             <h2 class="section-title">Education</h2>
             <div class="timeline">
-                <!-- Education Item 1 -->
-                <div class="timeline-item" style="margin-bottom: 0;">
+                <div class="timeline-item">
                     <div class="timeline-dot active"></div>
                     <div class="timeline-content">
                         <div class="timeline-header">
@@ -532,7 +500,7 @@
                                 <span class="separator">·</span>
                                 <span class="company">AISSMS IOIT, Pune</span>
                             </div>
-                            <span class="timeline-date">Second year</span>
+                            <span class="timeline-date">2025 — 2029</span>
                         </div>
                         <div class="timeline-body">
                             <ul class="timeline-bullets">
@@ -541,10 +509,45 @@
                         </div>
                     </div>
                 </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-title">
+                                <h3>Class XII (HSC)</h3>
+                                <span class="separator">·</span>
+                                <span class="company">Dr. Kalmadi Shamarao High School</span>
+                            </div>
+                            <span class="timeline-date">2025</span>
+                        </div>
+                        <div class="timeline-body">
+                            <ul class="timeline-bullets">
+                                <li>90.4%</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-title">
+                                <h3>Class X (CBSE)</h3>
+                                <span class="separator">·</span>
+                                <span class="company">MIT VGS</span>
+                            </div>
+                            <span class="timeline-date">2023</span>
+                        </div>
+                        <div class="timeline-body">
+                            <ul class="timeline-bullets">
+                                <li>94.4%</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
-
 
     <div class="divider"></div>
 
@@ -567,8 +570,6 @@
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M18.665 21.978C16.758 23.255 14.465 24 12 24 5.377 24 0 18.623 0 12S5.377 0 12 0s12 5.377 12 12c0 3.583-1.574 6.801-4.067 9.001L9.219 7.2H7.2v9.596h1.615V9.251l9.85 12.727Zm-3.332-8.533 1.6 2.061V7.2h-1.6v6.245Z"/></svg> Next.js</div>
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.357zm.014 11.072L7.857 17.53l6.47 6.47H21.7l-6.46-6.468 6.46-6.46h-7.37z"/></svg> Flutter</div>
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/></svg> Tailwind CSS</div>
-                            <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="7" cy="7" r="3.5"/><path d="M7 13.5a3.5 3.5 0 0 1 3.5 3.5v0A3.5 3.5 0 0 1 7 20.5H3.5V17A3.5 3.5 0 0 1 7 13.5z"/><rect x="14" y="3.5" width="7" height="17" rx="3.5"/></svg> Radix UI</div>
-                            <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.847 9.873c-.015-.078-.073-.138-.15-.157L11.83 7.828a.22.22 0 0 0-.258.115l-3.32 6.347a.22.22 0 0 0 .044.266l5.05 4.568c.065.059.162.062.23.007l5.244-4.275a.22.22 0 0 0 .077-.213l-.05-.77zm-9.043.685c.01-.069.056-.126.12-.149l5.082-1.815c.09-.032.185.03.193.125l.135 1.543a.15.15 0 0 1-.053.128l-4.148 3.57a.15.15 0 0 1-.225-.064l-1.104-3.338zM17.06 2.053a.35.35 0 0 0-.411.183l-3.52 6.732 2.65.733 3.328-6.363a.35.35 0 0 0-.07-.384l-1.977-.901z"/></svg> Playwright</div>
                         </div>
                         <!-- Group 2 (Duplicate for seamless loop) -->
                         <div class="tech-marquee-group" aria-hidden="true">
@@ -578,8 +579,6 @@
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M18.665 21.978C16.758 23.255 14.465 24 12 24 5.377 24 0 18.623 0 12S5.377 0 12 0s12 5.377 12 12c0 3.583-1.574 6.801-4.067 9.001L9.219 7.2H7.2v9.596h1.615V9.251l9.85 12.727Zm-3.332-8.533 1.6 2.061V7.2h-1.6v6.245Z"/></svg> Next.js</div>
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.357zm.014 11.072L7.857 17.53l6.47 6.47H21.7l-6.46-6.468 6.46-6.46h-7.37z"/></svg> Flutter</div>
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/></svg> Tailwind CSS</div>
-                            <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="7" cy="7" r="3.5"/><path d="M7 13.5a3.5 3.5 0 0 1 3.5 3.5v0A3.5 3.5 0 0 1 7 20.5H3.5V17A3.5 3.5 0 0 1 7 13.5z"/><rect x="14" y="3.5" width="7" height="17" rx="3.5"/></svg> Radix UI</div>
-                            <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.847 9.873c-.015-.078-.073-.138-.15-.157L11.83 7.828a.22.22 0 0 0-.258.115l-3.32 6.347a.22.22 0 0 0 .044.266l5.05 4.568c.065.059.162.062.23.007l5.244-4.275a.22.22 0 0 0 .077-.213l-.05-.77zm-9.043.685c.01-.069.056-.126.12-.149l5.082-1.815c.09-.032.185.03.193.125l.135 1.543a.15.15 0 0 1-.053.128l-4.148 3.57a.15.15 0 0 1-.225-.064l-1.104-3.338zM17.06 2.053a.35.35 0 0 0-.411.183l-3.52 6.732 2.65.733 3.328-6.363a.35.35 0 0 0-.07-.384l-1.977-.901z"/></svg> Playwright</div>
                         </div>
                     </div>
                 </div>
@@ -589,24 +588,18 @@
                     <div class="marquee-track marquee-track-reverse">
                         <!-- Group 1 -->
                         <div class="tech-marquee-group">
-                            <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383 c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0l8.795-5.076 c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072c-0.081-0.047-0.189-0.047-0.271,0 L3.075,6.68C2.99,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.139,0.235l2.409,1.392 c1.307,0.654,2.108-0.116,2.108-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253v10.021 c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921 c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.57,0.329,0.924,0.944,0.924,1.603 v10.15c0,0.659-0.354,1.273-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z M19.099,13.993 c0-1.9-1.284-2.406-3.987-2.763c-2.731-0.361-3.009-0.548-3.009-1.187c0-0.528,0.235-1.233,2.258-1.233 c1.807,0,2.473,0.389,2.747,1.607c0.024,0.115,0.129,0.199,0.247,0.199h1.141c0.071,0,0.138-0.031,0.186-0.081 c0.048-0.054,0.074-0.123,0.067-0.196c-0.177-2.098-1.571-3.076-4.388-3.076c-2.508,0-4.004,1.058-4.004,2.833 c0,1.925,1.488,2.457,3.895,2.695c2.88,0.282,3.103,0.703,3.103,1.269c0,0.983-0.789,1.402-2.642,1.402 c-2.327,0-2.839-0.584-3.011-1.742c-0.02-0.124-0.126-0.215-0.253-0.215h-1.137c-0.141,0-0.254,0.112-0.254,0.253 c0,1.482,0.806,3.248,4.655,3.248C17.501,17.007,19.099,15.91,19.099,13.993z"/></svg> Node.js</div>
-                            <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M24 18.588a1.529 1.529 0 01-1.895-.72l-3.45-4.771-.5-.667-4.003 5.444a1.466 1.466 0 01-1.802.708l5.158-6.92-4.798-6.251a1.595 1.595 0 011.9.666l3.576 4.83 3.596-4.81a1.435 1.435 0 011.788-.668L21.708 7.9l-2.522 3.283a.666.666 0 000 .994l4.804 6.412zM.002 11.576l.42-2.075c1.154-4.103 5.858-5.81 9.094-3.27 1.895 1.489 2.368 3.597 2.275 5.973H1.116C.943 16.447 4.005 19.009 7.92 17.7a4.078 4.078 0 002.582-2.876c.207-.666.548-.78 1.174-.588a5.417 5.417 0 01-2.589 3.957 6.272 6.272 0 01-7.306-.933 6.575 6.575 0 01-1.64-3.858c0-.235-.08-.455-.134-.666A88.33 88.33 0 010 11.577zm1.127-.286h9.654c-.06-3.076-2.001-5.258-4.59-5.278-2.882-.04-4.944 2.094-5.071 5.264z"/></svg> Express.js</div>
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M3.89 15.672L6.255.461A.542.542 0 017.27.288l2.543 4.771zm16.794 3.692l-2.25-14a.54.54 0 00-.919-.295L3.316 19.365l7.856 4.427a1.621 1.621 0 001.588 0zM14.3 7.147l-1.82-3.482a.542.542 0 00-.96 0L3.53 17.984z"/></svg> Firebase</div>
                             <div class="tech-item"><svg class="brand-multicolor" width="15" height="15" viewBox="17.36 -11.81 221.29 141.62"><g transform="matrix(0.86440678,0,0,0.86440678,17.355932,-11.812063)"><ellipse fill="#ffde2d" cx="170.66679" cy="81.919838" rx="85.333206" ry="81.919838"/><ellipse fill="#327eff" cx="85.333206" cy="81.919838" rx="85.333206" ry="81.919838"/><path d="m 170.66679,81.919964 c 0,45.243426 -38.20536,81.919196 -85.333713,81.919196 V 81.919964 Z M 85.333205,81.919836 C 85.333205,36.676791 123.53819,8.9599821e-5 170.66679,8.9599821e-5 V 81.919836 Z" fill="#ff6446"/></g></svg> ChromaDB</div>
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8l-4 4 4 4M17 8l4 4-4 4M14 4l-4 16"/></svg> REST APIs</div>
-                            <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.366 4.354 7.364-4.355L12.056 0zm-.002 15.358l-5.234-3.094L12.054 2.45l5.234 9.814-5.234 3.094z"/></svg> web3.py</div>
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M16.361 10.26a.9.9 0 0 0-.558.47l-.072.148l.001.207c0 .193.004.217.059.353c.076.193.152.312.291.448c.24.238.51.3.872.205a.86.86 0 0 0 .517-.436a.75.75 0 0 0 .08-.498c-.064-.453-.33-.782-.724-.897a1.1 1.1 0 0 0-.466 0m-9.203.005c-.305.096-.533.32-.65.639a1.2 1.2 0 0 0-.102.502c.008.312.195.539.467.618c.272.08.56-.002.774-.222a.9.9 0 0 0 .227-.478c.033-.217-.008-.423-.11-.595c-.144-.216-.36-.339-.586-.362zM9.5 2C8.67 2 8 2.67 8 3.5V6H7a3 3 0 0 0-3 3v4.5A5.5 5.5 0 0 0 9.5 19H10v3h4v-3h.5a5.5 5.5 0 0 0 5.5-5.5V9a3 3 0 0 0-3-3h-1V3.5C16 2.67 15.33 2 14.5 2z"/></svg> Ollama / Mistral 7B</div>
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"/></svg> Git / GitHub</div>
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M24 22.525H0l12-21.05 12 21.05z"/></svg> Vercel</div>
                         </div>
                         <!-- Group 2 (Duplicate for seamless loop) -->
                         <div class="tech-marquee-group" aria-hidden="true">
-                            <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383 c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0l8.795-5.076 c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072c-0.081-0.047-0.189-0.047-0.271,0 L3.075,6.68C2.99,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.139,0.235l2.409,1.392 c1.307,0.654,2.108-0.116,2.108-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253v10.021 c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921 c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.57,0.329,0.924,0.944,0.924,1.603 v10.15c0,0.659-0.354,1.273-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z M19.099,13.993 c0-1.9-1.284-2.406-3.987-2.763c-2.731-0.361-3.009-0.548-3.009-1.187c0-0.528,0.235-1.233,2.258-1.233 c1.807,0,2.473,0.389,2.747,1.607c0.024,0.115,0.129,0.199,0.247,0.199h1.141c0.071,0,0.138-0.031,0.186-0.081 c0.048-0.054,0.074-0.123,0.067-0.196c-0.177-2.098-1.571-3.076-4.388-3.076c-2.508,0-4.004,1.058-4.004,2.833 c0,1.925,1.488,2.457,3.895,2.695c2.88,0.282,3.103,0.703,3.103,1.269c0,0.983-0.789,1.402-2.642,1.402 c-2.327,0-2.839-0.584-3.011-1.742c-0.02-0.124-0.126-0.215-0.253-0.215h-1.137c-0.141,0-0.254,0.112-0.254,0.253 c0,1.482,0.806,3.248,4.655,3.248C17.501,17.007,19.099,15.91,19.099,13.993z"/></svg> Node.js</div>
-                            <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M24 18.588a1.529 1.529 0 01-1.895-.72l-3.45-4.771-.5-.667-4.003 5.444a1.466 1.466 0 01-1.802.708l5.158-6.92-4.798-6.251a1.595 1.595 0 011.9.666l3.576 4.83 3.596-4.81a1.435 1.435 0 011.788-.668L21.708 7.9l-2.522 3.283a.666.666 0 000 .994l4.804 6.412zM.002 11.576l.42-2.075c1.154-4.103 5.858-5.81 9.094-3.27 1.895 1.489 2.368 3.597 2.275 5.973H1.116C.943 16.447 4.005 19.009 7.92 17.7a4.078 4.078 0 002.582-2.876c.207-.666.548-.78 1.174-.588a5.417 5.417 0 01-2.589 3.957 6.272 6.272 0 01-7.306-.933 6.575 6.575 0 01-1.64-3.858c0-.235-.08-.455-.134-.666A88.33 88.33 0 010 11.577zm1.127-.286h9.654c-.06-3.076-2.001-5.258-4.59-5.278-2.882-.04-4.944 2.094-5.071 5.264z"/></svg> Express.js</div>
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M3.89 15.672L6.255.461A.542.542 0 017.27.288l2.543 4.771zm16.794 3.692l-2.25-14a.54.54 0 00-.919-.295L3.316 19.365l7.856 4.427a1.621 1.621 0 001.588 0zM14.3 7.147l-1.82-3.482a.542.542 0 00-.96 0L3.53 17.984z"/></svg> Firebase</div>
                             <div class="tech-item"><svg class="brand-multicolor" width="15" height="15" viewBox="17.36 -11.81 221.29 141.62"><g transform="matrix(0.86440678,0,0,0.86440678,17.355932,-11.812063)"><ellipse fill="#ffde2d" cx="170.66679" cy="81.919838" rx="85.333206" ry="81.919838"/><ellipse fill="#327eff" cx="85.333206" cy="81.919838" rx="85.333206" ry="81.919838"/><path d="m 170.66679,81.919964 c 0,45.243426 -38.20536,81.919196 -85.333713,81.919196 V 81.919964 Z M 85.333205,81.919836 C 85.333205,36.676791 123.53819,8.9599821e-5 170.66679,8.9599821e-5 V 81.919836 Z" fill="#ff6446"/></g></svg> ChromaDB</div>
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8l-4 4 4 4M17 8l4 4-4 4M14 4l-4 16"/></svg> REST APIs</div>
-                            <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.366 4.354 7.364-4.355L12.056 0zm-.002 15.358l-5.234-3.094L12.054 2.45l5.234 9.814-5.234 3.094z"/></svg> web3.py</div>
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M16.361 10.26a.9.9 0 0 0-.558.47l-.072.148l.001.207c0 .193.004.217.059.353c.076.193.152.312.291.448c.24.238.51.3.872.205a.86.86 0 0 0 .517-.436a.75.75 0 0 0 .08-.498c-.064-.453-.33-.782-.724-.897a1.1 1.1 0 0 0-.466 0m-9.203.005c-.305.096-.533.32-.65.639a1.2 1.2 0 0 0-.102.502c.008.312.195.539.467.618c.272.08.56-.002.774-.222a.9.9 0 0 0 .227-.478c.033-.217-.008-.423-.11-.595c-.144-.216-.36-.339-.586-.362zM9.5 2C8.67 2 8 2.67 8 3.5V6H7a3 3 0 0 0-3 3v4.5A5.5 5.5 0 0 0 9.5 19H10v3h4v-3h.5a5.5 5.5 0 0 0 5.5-5.5V9a3 3 0 0 0-3-3h-1V3.5C16 2.67 15.33 2 14.5 2z"/></svg> Ollama / Mistral 7B</div>
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"/></svg> Git / GitHub</div>
                             <div class="tech-item"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M24 22.525H0l12-21.05 12 21.05z"/></svg> Vercel</div>
@@ -736,6 +729,22 @@
                     </div>
                 </a>
 
+                <!-- LeetCode -->
+                <a href="https://leetcode.com/u/meghanaagnur/" target="_blank" rel="noopener noreferrer" class="contact-strip-item">
+                    <div class="contact-item-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"></path>
+                        </svg>
+                    </div>
+                    <div class="contact-item-info">
+                        <span class="contact-item-label">LeetCode</span>
+                        <svg class="contact-item-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="7" y1="17" x2="17" y2="7"></line>
+                            <polyline points="7 7 17 7 17 17"></polyline>
+                        </svg>
+                    </div>
+                </a>
+
                 <!-- Twitter (X) -->
                 <a href="https://x.com/meghanaagnur" target="_blank" rel="noopener noreferrer" class="contact-strip-item">
                     <div class="contact-item-icon">
@@ -770,7 +779,7 @@
                 </a>
 
                 <!-- Resume -->
-                <a href="resume.pdf?v=2" target="_blank" rel="noopener noreferrer" class="contact-strip-item">
+                <a href="resume.pdf?v=7" target="_blank" rel="noopener noreferrer" class="contact-strip-item">
                     <div class="contact-item-icon">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
@@ -800,7 +809,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=21"></script>
+    <script src="script.js?v=23"></script>
     <script src="components/link-preview/link-preview.js"></script>
 
     <!-- Interactive Pixel Art Cat Companion Component (Temporarily disabled - ready to restore later)
