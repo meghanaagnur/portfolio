@@ -1000,6 +1000,7 @@ nav {
 }
 
 .section-title {
+    font-variant-numeric: lining-nums;
     font-family: 'Playfair Display', serif;
     font-size: 1.8rem;
     font-weight: 400;
@@ -2412,7 +2413,7 @@ nav {
 
 /* ===================================================
    Open-to-work badge, project roles, achievements,
-   programs grid, inline links, sound toggle
+   programs grid, inline links
    =================================================== */
 
 .open-to-work {
@@ -2556,6 +2557,89 @@ nav {
     }
 }
 
+/* Education cards (same family as the Programs & Communities cards) */
+.edu-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 0.9rem;
+}
+
+.edu-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    transition: border-color 0.2s ease;
+}
+
+.edu-card:hover {
+    border-color: var(--border-hover);
+}
+
+.edu-card-primary {
+    border-color: rgba(157, 133, 252, 0.35);
+}
+
+.edu-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+}
+
+.edu-level {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+}
+
+.edu-years {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.edu-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.edu-school {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-top: 0.15rem;
+}
+
+.edu-score {
+    align-self: flex-start;
+    margin-top: auto;
+    padding-top: 0.85rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.edu-score span {
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+    .edu-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 .inline-link {
     color: var(--accent-color);
     text-decoration: none;
@@ -2568,20 +2652,27 @@ nav {
     border-bottom-color: var(--accent-color);
 }
 
-/* Sound toggle sits right next to the theme toggle */
-.sound-toggle {
-    margin-right: -0.9rem;
-}
-
-.sound-toggle:hover {
-    transform: none;
-}
-
-.sound-on-icon { display: none; }
-.sound-off-icon { display: block; }
-.sound-toggle[aria-pressed="true"] .sound-on-icon { display: block; }
-.sound-toggle[aria-pressed="true"] .sound-off-icon { display: none; }
-
 @media (prefers-reduced-motion: reduce) {
     .open-to-work-dot { animation: none; }
 }
+
+/* Sub-headings share the section-title serif (Playfair Display) so every
+   heading on the page reads as one family; body text stays in Inter */
+.project-title-large,
+.project-title-standard,
+.timeline-title h3,
+.achievement-text h3,
+.program-head h3,
+.edu-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    letter-spacing: 0;
+    font-variant-numeric: lining-nums;
+}
+
+.project-title-large { font-size: 1.85rem; }
+.project-title-standard { font-size: 1.4rem; }
+.timeline-title h3 { font-size: 1.15rem; }
+.achievement-text h3 { font-size: 1.1rem; }
+.program-head h3,
+.edu-card h3 { font-size: 1.05rem; }

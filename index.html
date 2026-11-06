@@ -23,7 +23,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=m3">
     <link rel="shortcut icon" href="favicon.ico?v=m3">
     <link rel="apple-touch-icon" href="favicon.png?v=m3">
-    <link rel="stylesheet" href="styles.css?v=35">
+    <link rel="stylesheet" href="styles.css?v=38">
     <link rel="stylesheet" href="components/link-preview/link-preview.css">
     <!-- Pixel Cat Companion (Temporarily disabled - ready to restore later)
     <link rel="stylesheet" href="components/pixel-cat/pixel-cat.css">
@@ -45,10 +45,6 @@
                     <a href="#contact">Contact</a>
                     <div class="nav-indicator"></div>
                 </div>
-                <button id="soundToggle" class="theme-toggle sound-toggle" aria-label="Turn click sounds on" aria-pressed="false" title="Click sounds: off">
-                    <svg class="sound-on-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
-                    <svg class="sound-off-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
-                </button>
                 <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
                     <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -490,60 +486,33 @@
         <!-- Education Section -->
         <section class="content-section" id="education">
             <h2 class="section-title">Education</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot active"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <div class="timeline-title">
-                                <h3>B.Tech, Information Technology</h3>
-                                <span class="separator">·</span>
-                                <span class="company">AISSMS IOIT, Pune</span>
-                            </div>
-                            <span class="timeline-date">2025 — 2029</span>
-                        </div>
-                        <div class="timeline-body">
-                            <ul class="timeline-bullets">
-                                <li>CGPA: 9.35 (First Year)</li>
-                            </ul>
-                        </div>
+            <div class="edu-grid">
+                <div class="edu-card edu-card-primary">
+                    <div class="edu-card-top">
+                        <span class="edu-level">Undergraduate</span>
+                        <span class="edu-years">2025 — 2029</span>
                     </div>
+                    <h3>B.Tech, Information Technology</h3>
+                    <p class="edu-school">AISSMS Institute of Information Technology, Pune</p>
+                    <span class="edu-score">CGPA 9.35 <span>· First Year</span></span>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <div class="timeline-title">
-                                <h3>Class XII (HSC)</h3>
-                                <span class="separator">·</span>
-                                <span class="company">Dr. Kalmadi Shamarao High School</span>
-                            </div>
-                            <span class="timeline-date">2025</span>
-                        </div>
-                        <div class="timeline-body">
-                            <ul class="timeline-bullets">
-                                <li>90.4%</li>
-                            </ul>
-                        </div>
+                <div class="edu-card">
+                    <div class="edu-card-top">
+                        <span class="edu-level">Class XII · HSC</span>
+                        <span class="edu-years">2025</span>
                     </div>
+                    <h3>Higher Secondary</h3>
+                    <p class="edu-school">Dr. Kalmadi Shamarao High School</p>
+                    <span class="edu-score">90.4%</span>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <div class="timeline-title">
-                                <h3>Class X (CBSE)</h3>
-                                <span class="separator">·</span>
-                                <span class="company">MIT VGS</span>
-                            </div>
-                            <span class="timeline-date">2023</span>
-                        </div>
-                        <div class="timeline-body">
-                            <ul class="timeline-bullets">
-                                <li>94.4%</li>
-                            </ul>
-                        </div>
+                <div class="edu-card">
+                    <div class="edu-card-top">
+                        <span class="edu-level">Class X · CBSE</span>
+                        <span class="edu-years">2023</span>
                     </div>
+                    <h3>Secondary</h3>
+                    <p class="edu-school">MIT VGS</p>
+                    <span class="edu-score">94.4%</span>
                 </div>
             </div>
         </section>
@@ -809,7 +778,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=23"></script>
+    <script src="script.js?v=24"></script>
     <script src="components/link-preview/link-preview.js"></script>
 
     <!-- Interactive Pixel Art Cat Companion Component (Temporarily disabled - ready to restore later)
