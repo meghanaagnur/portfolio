@@ -2435,9 +2435,9 @@ nav {
     padding: 0.22rem 0.7rem;
     font-size: 0.75rem;
     font-weight: 500;
-    color: var(--text-primary);
-    background: rgba(74, 222, 128, 0.08);
-    border: 1px solid rgba(74, 222, 128, 0.35);
+    color: var(--text-secondary);
+    background: var(--brand-pill-bg);
+    border: 1px solid var(--brand-pill-border);
     border-radius: 9999px;
 }
 
@@ -2445,18 +2445,14 @@ nav {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #4ade80;
-    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
+    background: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--accent-subtle);
     animation: open-to-work-pulse 2.4s ease-in-out infinite;
 }
 
 @keyframes open-to-work-pulse {
-    0%, 100% { box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2); }
-    50% { box-shadow: 0 0 0 5px rgba(74, 222, 128, 0.05); }
-}
-
-[data-theme="light"] .open-to-work-dot {
-    background: #16a34a;
+    0%, 100% { box-shadow: 0 0 0 3px var(--accent-glow); }
+    50% { box-shadow: 0 0 0 5px var(--accent-subtle); }
 }
 
 .project-role {
