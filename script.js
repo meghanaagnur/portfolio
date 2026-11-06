@@ -23,22 +23,51 @@ document.addEventListener('DOMContentLoaded', () => {
                 contribCountEl.textContent = `${totalCount} contributions in the last year`;
             }
 
+            // Pad the start so the first column begins on a Sunday, like GitHub's
+            // calendar; otherwise every week column is shifted against the labels
+            const firstDate = contributions[0] && contributions[0].date;
+            let leadingBlanks = 0;
+            if (firstDate) {
+                const [y, m, d] = firstDate.split('-').map(Number);
+                leadingBlanks = new Date(y, m - 1, d).getDay();
+            }
+            // Keep the grid at 53 weeks: drop the oldest days if padding overflows
+            const maxDays = 53 * 7 - leadingBlanks;
+            const days = contributions.slice(Math.max(0, contributions.length - maxDays));
+
+            // Each month's label goes over the first week column it appears in
+            const monthLabels = [];
             const seenMonths = new Set();
-
-            contributions.forEach((day, index) => {
-                const col = Math.floor(index / 7);
+            days.forEach((day, index) => {
                 const monthKey = day.date.substring(0, 7); // e.g. "2025-10"
+                if (seenMonths.has(monthKey)) return;
+                seenMonths.add(monthKey);
+                monthLabels.push({
+                    col: Math.floor((index + leadingBlanks) / 7),
+                    name: monthShortNames[parseInt(day.date.substring(5, 7), 10) - 1]
+                });
+            });
 
-                // Position each month label precisely over its starting week column
-                if (!seenMonths.has(monthKey) && monthsContainer) {
-                    seenMonths.add(monthKey);
-                    const monthNum = parseInt(day.date.substring(5, 7), 10);
+            // Skip labels too close to the next one (or the right edge) to fit
+            const MIN_GAP_COLS = 3;
+            if (monthsContainer) {
+                monthLabels.forEach((m, i) => {
+                    const nextCol = i + 1 < monthLabels.length ? monthLabels[i + 1].col : 53;
+                    if (nextCol - m.col < MIN_GAP_COLS) return;
                     const label = document.createElement('span');
-                    label.textContent = monthShortNames[monthNum - 1];
-                    label.style.gridColumnStart = (col + 1).toString();
+                    label.textContent = m.name;
+                    label.style.gridColumnStart = (m.col + 1).toString();
                     monthsContainer.appendChild(label);
-                }
+                });
+            }
 
+            for (let i = 0; i < leadingBlanks; i++) {
+                const blank = document.createElement('div');
+                blank.className = 'graph-cell graph-cell-empty';
+                graphContainer.appendChild(blank);
+            }
+
+            days.forEach((day) => {
                 const cell = document.createElement('div');
                 cell.className = 'graph-cell';
 

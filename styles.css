@@ -1627,7 +1627,11 @@ nav {
 
 .github-months {
     display: grid;
-    grid-template-columns: repeat(53, 1fr);
+    /* must mirror .github-graph's columns exactly (same track sizing and gap)
+       so each label sits over the week it starts in; minmax(0, 1fr) stops a
+       label's text from widening its column */
+    grid-template-columns: repeat(53, minmax(0, 1fr));
+    column-gap: 2.5px;
     font-size: 0.72rem;
     color: var(--text-muted);
     margin-bottom: 0.35rem;
@@ -1668,7 +1672,7 @@ nav {
 .github-graph {
     display: grid;
     grid-template-rows: repeat(7, 1fr);
-    grid-template-columns: repeat(53, 1fr);
+    grid-template-columns: repeat(53, minmax(0, 1fr));
     grid-auto-flow: column; /* CRITICAL: Column-major flow to match Sunday-Saturday weeks */
     gap: 2.5px;
     flex: 1;
@@ -1680,6 +1684,13 @@ nav {
     border-radius: 2px;
     background-color: var(--level-0);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.graph-cell.graph-cell-empty,
+.graph-cell.graph-cell-empty:hover {
+    background-color: transparent;
+    box-shadow: none;
+    transform: none;
 }
 
 .graph-cell.level-0 { background-color: var(--level-0); }
@@ -2665,9 +2676,15 @@ nav {
 .program-head h3,
 .edu-card h3 {
     font-family: 'Playfair Display', serif;
-    font-weight: 500;
-    letter-spacing: 0;
+    font-weight: 400;
+    letter-spacing: normal;
     font-variant-numeric: lining-nums;
+}
+
+/* Name heading matches the section titles too */
+.profile-info h1 {
+    font-weight: 400;
+    letter-spacing: normal;
 }
 
 .project-title-large { font-size: 1.85rem; }
