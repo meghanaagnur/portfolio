@@ -52,52 +52,53 @@
 }
 
 [data-theme="light"] {
-    /* Light Theme - Clean Crisp Paper & Ink */
-    --bg-color: #ffffff;
-    --surface: #f9f9fb;
-    --surface-hover: #f3f3f6;
-    --text-primary: #09090b;
-    --text-secondary: #52525b;
-    --text-muted: #8b8b93;
-    --accent: #09090b;
-    --border: #d4d4d8;
-    --border-hover: #8e959d;
-    --site-outline: #c4c7cc;
-    --site-outline-hover: #8e959d;
-    --nav-text: #71717a;
-    --nav-active: #09090b;
-    --link-color: #09090b;
-    --brand-pill-bg: #f4f4f5;
-    --brand-pill-border: #d4d4d8;
-    --brand-pill-hover-bg: #ececee;
-    --brand-pill-text: #18181b;
-    --avatar-ring: #d4d4d8;
-    --avatar-glow: rgba(0, 0, 0, 0.06);
+    /* Light Theme - Sand & Olive, drawn from the day pond painting
+       (sand/cream surfaces, olive-gold reeds as the accent) */
+    --bg-color: #faf7ef;
+    --surface: #f3eedf;
+    --surface-hover: #ede6d3;
+    --text-primary: #2a2618;
+    --text-secondary: #5a5440;
+    --text-muted: #706a53;
+    --accent: #2a2618;
+    --border: #ddd4bd;
+    --border-hover: #a89f80;
+    --site-outline: #d6ccb2;
+    --site-outline-hover: #a89f80;
+    --nav-text: #7a7358;
+    --nav-active: #2a2618;
+    --link-color: #2a2618;
+    --brand-pill-bg: #f1ebdc;
+    --brand-pill-border: #ddd4bd;
+    --brand-pill-hover-bg: #e9e1cb;
+    --brand-pill-text: #2a2618;
+    --avatar-ring: #ddd4bd;
+    --avatar-glow: rgba(111, 106, 46, 0.12);
 
     /* Glare Button Tokens Light */
-    --btn-bg: #ffffff;
-    --btn-bg-hover: #fafafa;
-    --btn-text: #09090b;
-    --btn-border: #d4d4d8;
-    --btn-border-hover: #8e959d;
-    --btn-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-    --btn-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+    --btn-bg: #fbf9f3;
+    --btn-bg-hover: #f5f0e3;
+    --btn-text: #2a2618;
+    --btn-border: #ddd4bd;
+    --btn-border-hover: #a89f80;
+    --btn-shadow: 0 1px 3px rgba(60, 50, 20, 0.07), 0 1px 2px rgba(60, 50, 20, 0.05);
+    --btn-shadow-hover: 0 8px 20px rgba(60, 50, 20, 0.09), 0 2px 6px rgba(60, 50, 20, 0.05);
 
-    /* GitHub Heatmap - Original Monochrome Light */
-    --level-0: #ebedf0;
-    --level-1: #d0d7de;
-    --level-2: #9fa6ad;
-    --level-3: #6e7781;
-    --level-4: #24292f;
+    /* GitHub Heatmap - olive scale */
+    --level-0: #ebe5d3;
+    --level-1: #d5cfa4;
+    --level-2: #aba468;
+    --level-3: #7f7a3e;
+    --level-4: #4c481d;
 
     /* Hero Banner Dynamic Tokens (Light Theme) */
     --ripple-color: rgba(255, 248, 225, 0.8);
     --petal-color: #f4a9a0;
 
-    /* Accent — Royal Violet / Indigo (drawn from swan banner palette) */
-    --accent-color: #6366f1;
-    --accent-glow: rgba(99, 102, 241, 0.25);
-    --accent-subtle: rgba(99, 102, 241, 0.08);
+    /* Accent - reed olive */
+    --accent-color: #6f6a2e;
+    --accent-glow: rgba(111, 106, 46, 0.28);
+    --accent-subtle: rgba(111, 106, 46, 0.10);
 }
 
 * {
@@ -1205,8 +1206,12 @@ nav {
 }
 
 [data-theme="light"] .project-card:hover {
-    border-color: rgba(99, 102, 241, 0.35);
-    box-shadow: 0 16px 32px -10px rgba(99, 102, 241, 0.12);
+    border-color: var(--accent-glow);
+    box-shadow: 0 16px 32px -10px rgba(111, 106, 46, 0.16);
+}
+
+[data-theme="light"] .project-card-featured {
+    background: linear-gradient(135deg, rgba(111, 106, 46, 0.06) 0%, transparent 60%), var(--surface);
 }
 
 /* Featured Hero Card (VaariSarthi - Horizontal Split on Desktop) */
@@ -1340,8 +1345,13 @@ nav {
 }
 
 [data-theme="light"] .preview-chrome {
-    background: #f4f4f5;
-    border-bottom: 1px solid #e4e4e7;
+    background: #efe9d9;
+    border-bottom: 1px solid var(--border);
+}
+
+[data-theme="light"] .project-card:hover .project-preview-frame {
+    border-color: var(--accent-glow);
+    box-shadow: 0 10px 28px rgba(111, 106, 46, 0.12);
 }
 
 .chrome-controls {
@@ -2103,7 +2113,7 @@ nav {
 
 [data-theme="light"] .contact-form-input,
 [data-theme="light"] .contact-form-textarea {
-    background: #fbfbfb;
+    background: #fdfbf6;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
@@ -2116,7 +2126,7 @@ nav {
 
 [data-theme="light"] .contact-form-input:focus,
 [data-theme="light"] .contact-form-textarea:focus {
-    background: #ffffff;
+    background: #fffdf8;
     border-color: var(--accent-color);
     box-shadow: 0 0 0 1px var(--accent-color);
 }
@@ -2589,7 +2599,7 @@ nav {
 }
 
 .edu-card-primary {
-    border-color: rgba(157, 133, 252, 0.35);
+    border-color: var(--accent-glow);
 }
 
 .edu-card-top {
