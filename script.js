@@ -35,16 +35,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const maxDays = 53 * 7 - leadingBlanks;
             const days = contributions.slice(Math.max(0, contributions.length - maxDays));
 
-            // Each month's label goes over the first week column it appears in
-            const monthLabels = [];
-            const seenMonths = new Set();
+            // Like GitHub, a month's label goes over the first week column whose
+            // first day (the Sunday) is in that month, not the week containing
+            // the 1st; otherwise labels sit a column early when a month starts
+            // mid-week
+            const colMonth = [];
             days.forEach((day, index) => {
-                const monthKey = day.date.substring(0, 7); // e.g. "2025-10"
-                if (seenMonths.has(monthKey)) return;
-                seenMonths.add(monthKey);
+                const col = Math.floor((index + leadingBlanks) / 7);
+                if (colMonth[col] === undefined) colMonth[col] = day.date.substring(0, 7); // e.g. "2025-10"
+            });
+            const monthLabels = [];
+            colMonth.forEach((monthKey, col) => {
+                if (col > 0 && monthKey === colMonth[col - 1]) return;
                 monthLabels.push({
-                    col: Math.floor((index + leadingBlanks) / 7),
-                    name: monthShortNames[parseInt(day.date.substring(5, 7), 10) - 1]
+                    col,
+                    name: monthShortNames[parseInt(monthKey.substring(5, 7), 10) - 1]
                 });
             });
 
